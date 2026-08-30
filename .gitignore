@@ -1,0 +1,8 @@
+# Arquivos locais fora do versionamento
+CLAUDE.md
+privado/
+*.local.*
+.env
+__pycache__/
+*.pyc
+.venv/
