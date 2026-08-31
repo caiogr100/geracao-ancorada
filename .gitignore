@@ -1,5 +1,4 @@
 # Arquivos locais fora do versionamento
-CLAUDE.md
 privado/
 *.local.*
 .env
