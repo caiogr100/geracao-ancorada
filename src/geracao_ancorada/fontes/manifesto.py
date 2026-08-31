@@ -23,6 +23,7 @@ class Fonte:
     redistribuivel: bool
     areas: list[str]
     sha256: str | None = None
+    substitui: str | None = None
 
 
 def carregar_manifesto(caminho: Path) -> list[Fonte]:
@@ -38,4 +39,12 @@ def carregar_manifesto(caminho: Path) -> list[Fonte]:
         if any(fonte.id == entrada["id"] for fonte in fontes):
             raise ManifestoInvalido(f"id repetido no manifesto: {entrada['id']}")
         fontes.append(Fonte(**entrada))
+
+    ids = {fonte.id for fonte in fontes}
+    for fonte in fontes:
+        if fonte.substitui is not None and fonte.substitui not in ids:
+            raise ManifestoInvalido(
+                f"fonte {fonte.id}: substitui {fonte.substitui}, "
+                "que não está no manifesto"
+            )
     return fontes

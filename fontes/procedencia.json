@@ -1,6 +1,20 @@
 {
   "fontes": [
     {
+      "id": "pcdt-asma-2021",
+      "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/20210830_pcdt_asma_pt14.pdf/@@display-file/file",
+      "sha256": "ba78f1b3b0d95d1038a44e30dbdcf971734ba898e4f033ddc1970d99f2394ff8",
+      "bytes": 2796438,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "pcdt-dislipidemia-2019",
+      "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt_dislipidemia.pdf/@@display-file/file",
+      "sha256": "70224304f3a7bc95fb65c36f76ade4b5de181fc216ad9dfbe58439ea3e2945cc",
+      "bytes": 500828,
+      "baixado_em": "2026-08-31"
+    },
+    {
       "id": "pcdt-dm2-2024",
       "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/PCDTDM2.pdf/@@display-file/file",
       "sha256": "caa7af92255fcc1970e84902383177e2f7fd39513044821c7177f343eb7d9f61",
@@ -12,6 +26,20 @@
       "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/2026/pcdt-diabete-melito-tipo-2/@@display-file/file",
       "sha256": "f90b782997a5f90842877c6526432cd382b596ad6cb7ad95da0a2fd776dfae09",
       "bytes": 1826727,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "pcdt-dpoc-2025",
+      "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt-da-doenca-pulmonar-obstrutiva-cronica/@@display-file/file",
+      "sha256": "0cb3c41bd793bb303eb0795ed492dd60ade271c94a2fd29d296b9876342d4c7f",
+      "bytes": 1123322,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "pcdt-has-2025",
+      "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt-hipertensao-arterial-sistemica.pdf/@@display-file/file",
+      "sha256": "1f39016a1f1df510b5221d1809a6ff40674d9bad6797bb68b7fc14094c85b608",
+      "bytes": 1646828,
       "baixado_em": "2026-08-31"
     }
   ]

@@ -22,6 +22,7 @@ fontes:
     base_legal: anexo da Portaria SCTIE/MS nº 13, de 21 de fevereiro de 2026
     redistribuivel: true
     areas: [clinica-medica]
+    substitui: pcdt-dm2-2024
 
   # Vigente à época das provas do corpus, substituído pela portaria de 2026.
   # Fica no manifesto porque a prova de 2024 ou 2025 foi respondida sob ele:
@@ -32,5 +33,44 @@ fontes:
     ano: 2024
     url: https://www.gov.br/conitec/pt-br/midias/protocolos/PCDTDM2.pdf/@@display-file/file
     base_legal: anexo da Portaria SECTICS/MS nº 7, de 28 de fevereiro de 2024
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  - id: pcdt-asma-2021
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Asma
+    orgao: MS/CONITEC
+    ano: 2021
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/20210830_pcdt_asma_pt14.pdf/@@display-file/file
+    base_legal: anexo da Portaria Conjunta nº 14, de 24 de agosto de 2021
+    redistribuivel: true
+    areas: [clinica-medica, pediatria]
+
+  - id: pcdt-dpoc-2025
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Doença Pulmonar Obstrutiva Crônica
+    orgao: MS/CONITEC
+    ano: 2025
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt-da-doenca-pulmonar-obstrutiva-cronica/@@display-file/file
+    base_legal: anexo da Portaria Conjunta SAES/SCTIE nº 29, de 27 de novembro de 2025
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  - id: pcdt-dislipidemia-2019
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Dislipidemia
+    orgao: MS/CONITEC
+    ano: 2019
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt_dislipidemia.pdf/@@display-file/file
+    base_legal: anexo da Portaria Conjunta nº 8, de 30 de julho de 2019
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  # Hipertensão arterial SISTÊMICA. O catálogo do CONITEC também traz hap.pdf e
+  # hap-1.pdf, que são de hipertensão arterial PULMONAR, doença diferente e fora
+  # do que as bancas cobram como hipertensão.
+  - id: pcdt-has-2025
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Hipertensão Arterial Sistêmica
+    orgao: MS/CONITEC
+    ano: 2025
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt-hipertensao-arterial-sistemica.pdf/@@display-file/file
+    base_legal: anexo da Portaria SECTICS/MS nº 49, de 23 de julho de 2025
     redistribuivel: true
     areas: [clinica-medica]
