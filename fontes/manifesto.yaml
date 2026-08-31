@@ -1,0 +1,126 @@
+# Fontes normativas brasileiras que ancoram a geração.
+#
+# O repositório NÃO guarda os documentos. Guarda este ponteiro, o hash e a data
+# do download (fontes/procedencia.json), e `python -m geracao_ancorada.fontes`
+# reconstrói o corpus a partir das URL oficiais.
+#
+# Duas notas de acesso, ambas descobertas na prática e ambas recorrentes:
+#   1. no gov.br, a URL divulgada devolve a página; o arquivo está no sufixo
+#      /@@display-file/file (ou /@@download/file);
+#   2. o caminho do CONITEC migrou de /assuntos/protocolos/ para
+#      /midias/protocolos/ em algum momento entre julho de 2026 e agora.
+#
+# O campo sha256 fica em branco até o congelamento do snapshot; depois disso ele
+# é o que acusa mudança da fonte sob o experimento.
+
+fontes:
+  - id: pcdt-dm2-2026
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas do Diabete Melito Tipo 2
+    orgao: MS/CONITEC
+    ano: 2026
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/2026/pcdt-diabete-melito-tipo-2/@@display-file/file
+    base_legal: anexo da Portaria SCTIE/MS nº 13, de 21 de fevereiro de 2026
+    redistribuivel: true
+    areas: [clinica-medica]
+    substitui: pcdt-dm2-2024
+
+  # Vigente à época das provas do corpus, substituído pela portaria de 2026.
+  # Fica no manifesto porque a prova de 2024 ou 2025 foi respondida sob ele:
+  # é o estrato fonte-atualizada-após-a-prova previsto na seção 5.2.
+  - id: pcdt-dm2-2024
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas do Diabete Melito Tipo 2
+    orgao: MS/CONITEC
+    ano: 2024
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/PCDTDM2.pdf/@@display-file/file
+    base_legal: anexo da Portaria SECTICS/MS nº 7, de 28 de fevereiro de 2024
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  - id: pcdt-asma-2021
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Asma
+    orgao: MS/CONITEC
+    ano: 2021
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/20210830_pcdt_asma_pt14.pdf/@@display-file/file
+    base_legal: anexo da Portaria Conjunta nº 14, de 24 de agosto de 2021
+    redistribuivel: true
+    areas: [clinica-medica, pediatria]
+
+  - id: pcdt-dpoc-2025
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Doença Pulmonar Obstrutiva Crônica
+    orgao: MS/CONITEC
+    ano: 2025
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt-da-doenca-pulmonar-obstrutiva-cronica/@@display-file/file
+    base_legal: anexo da Portaria Conjunta SAES/SCTIE nº 29, de 27 de novembro de 2025
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  - id: pcdt-dislipidemia-2019
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Dislipidemia
+    orgao: MS/CONITEC
+    ano: 2019
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt_dislipidemia.pdf/@@display-file/file
+    base_legal: anexo da Portaria Conjunta nº 8, de 30 de julho de 2019
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  # Hipertensão arterial SISTÊMICA. O catálogo do CONITEC também traz hap.pdf e
+  # hap-1.pdf, que são de hipertensão arterial PULMONAR, doença diferente e fora
+  # do que as bancas cobram como hipertensão.
+  - id: pcdt-has-2025
+    titulo: Protocolo Clínico e Diretrizes Terapêuticas da Hipertensão Arterial Sistêmica
+    orgao: MS/CONITEC
+    ano: 2025
+    url: https://www.gov.br/conitec/pt-br/midias/protocolos/pcdt-hipertensao-arterial-sistemica.pdf/@@display-file/file
+    base_legal: anexo da Portaria SECTICS/MS nº 49, de 23 de julho de 2025
+    redistribuivel: true
+    areas: [clinica-medica]
+
+  # --- Publicações do MS fora do CONITEC ---
+  # Descobertas por busca, não por catálogo: no gov.br/saude a API REST do Plone
+  # está fechada para anônimo ("Missing 'plone.restapi: Use REST API' permission")
+  # e as listagens carregam por JavaScript. O sufixo de download, porém, é o mesmo.
+
+  - id: guia-vigilancia-saude-2024-v1
+    titulo: Guia de Vigilância em Saúde, volume 1, 6ª edição revisada
+    orgao: MS/SVSA
+    ano: 2024
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-1-6a-edicao/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [preventiva]
+
+  - id: guia-vigilancia-saude-2024-v2
+    titulo: Guia de Vigilância em Saúde, volume 2, 6ª edição revisada
+    orgao: MS/SVSA
+    ano: 2024
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-2-6a-edicao/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [preventiva]
+
+  - id: guia-vigilancia-saude-2024-v3
+    titulo: Guia de Vigilância em Saúde, volume 3, 6ª edição revisada
+    orgao: MS/SVSA
+    ano: 2024
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-3-6a-edicao/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [preventiva]
+
+  - id: manual-tuberculose-2019
+    titulo: Manual de Recomendações para o Controle da Tuberculose no Brasil, 2ª edição
+    orgao: MS/SVSA
+    ano: 2019
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/tuberculose/manual-de-recomendacoes-e-controle-da-tuberculose-no-brasil-2a-ed.pdf/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [clinica-medica, preventiva]
+
+  - id: calendario-vacinacao-2026
+    titulo: Instrução Normativa do Calendário Nacional de Vacinação de 2026
+    orgao: MS/PNI
+    ano: 2026
+    url: https://www.gov.br/saude/pt-br/vacinacao/publicacoes/instrucao-normativa-que-instrui-o-calendario-nacional-de-vacinacao-2026.pdf/@@display-file/file
+    base_legal: instrução normativa, ato oficial
+    redistribuivel: true
+    areas: [pediatria, preventiva]

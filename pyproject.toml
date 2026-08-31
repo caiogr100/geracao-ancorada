@@ -1,0 +1,24 @@
+[project]
+name = "geracao-ancorada"
+version = "0.1.0"
+description = "Harness experimental de geração ancorada de comentários de questões de residência médica"
+requires-python = ">=3.12"
+dependencies = [
+    "pyyaml>=6.0",
+    "httpx>=0.27",
+    "pypdf>=5.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geracao_ancorada"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
