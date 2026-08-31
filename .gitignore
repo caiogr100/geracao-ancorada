@@ -6,3 +6,6 @@ privado/
 __pycache__/
 *.pyc
 .venv/
+
+# Documentos baixados: o repositório versiona o ponteiro, não o PDF
+fontes/cache/

@@ -1,0 +1,18 @@
+{
+  "fontes": [
+    {
+      "id": "pcdt-dm2-2024",
+      "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/PCDTDM2.pdf/@@display-file/file",
+      "sha256": "caa7af92255fcc1970e84902383177e2f7fd39513044821c7177f343eb7d9f61",
+      "bytes": 1653229,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "pcdt-dm2-2026",
+      "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/2026/pcdt-diabete-melito-tipo-2/@@display-file/file",
+      "sha256": "f90b782997a5f90842877c6526432cd382b596ad6cb7ad95da0a2fd776dfae09",
+      "bytes": 1826727,
+      "baixado_em": "2026-08-31"
+    }
+  ]
+}
