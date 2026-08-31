@@ -74,3 +74,53 @@ fontes:
     base_legal: anexo da Portaria SECTICS/MS nº 49, de 23 de julho de 2025
     redistribuivel: true
     areas: [clinica-medica]
+
+  # --- Publicações do MS fora do CONITEC ---
+  # Descobertas por busca, não por catálogo: no gov.br/saude a API REST do Plone
+  # está fechada para anônimo ("Missing 'plone.restapi: Use REST API' permission")
+  # e as listagens carregam por JavaScript. O sufixo de download, porém, é o mesmo.
+
+  - id: guia-vigilancia-saude-2024-v1
+    titulo: Guia de Vigilância em Saúde, volume 1, 6ª edição revisada
+    orgao: MS/SVSA
+    ano: 2024
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-1-6a-edicao/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [preventiva]
+
+  - id: guia-vigilancia-saude-2024-v2
+    titulo: Guia de Vigilância em Saúde, volume 2, 6ª edição revisada
+    orgao: MS/SVSA
+    ano: 2024
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-2-6a-edicao/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [preventiva]
+
+  - id: guia-vigilancia-saude-2024-v3
+    titulo: Guia de Vigilância em Saúde, volume 3, 6ª edição revisada
+    orgao: MS/SVSA
+    ano: 2024
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-3-6a-edicao/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [preventiva]
+
+  - id: manual-tuberculose-2019
+    titulo: Manual de Recomendações para o Controle da Tuberculose no Brasil, 2ª edição
+    orgao: MS/SVSA
+    ano: 2019
+    url: https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/tuberculose/manual-de-recomendacoes-e-controle-da-tuberculose-no-brasil-2a-ed.pdf/@@display-file/file
+    base_legal: publicação oficial do Ministério da Saúde, reprodução permitida com citação da fonte
+    redistribuivel: true
+    areas: [clinica-medica, preventiva]
+
+  - id: calendario-vacinacao-2026
+    titulo: Instrução Normativa do Calendário Nacional de Vacinação de 2026
+    orgao: MS/PNI
+    ano: 2026
+    url: https://www.gov.br/saude/pt-br/vacinacao/publicacoes/instrucao-normativa-que-instrui-o-calendario-nacional-de-vacinacao-2026.pdf/@@display-file/file
+    base_legal: instrução normativa, ato oficial
+    redistribuivel: true
+    areas: [pediatria, preventiva]

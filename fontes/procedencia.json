@@ -1,6 +1,41 @@
 {
   "fontes": [
     {
+      "id": "calendario-vacinacao-2026",
+      "url": "https://www.gov.br/saude/pt-br/vacinacao/publicacoes/instrucao-normativa-que-instrui-o-calendario-nacional-de-vacinacao-2026.pdf/@@display-file/file",
+      "sha256": "e5d92d48872fdc8c10d00ea28e36c5aa3926ad12429bb4e51dc8548c1c5550f2",
+      "bytes": 1597202,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "guia-vigilancia-saude-2024-v1",
+      "url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-1-6a-edicao/@@display-file/file",
+      "sha256": "ee919eb7952019ddd205f5be0bd193a37f4b03d0d921c3c26b4aa86673077330",
+      "bytes": 4351482,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "guia-vigilancia-saude-2024-v2",
+      "url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-2-6a-edicao/@@display-file/file",
+      "sha256": "93329dd1de090aaebfe0630a4077110b4dcf65b6107b074a41f606812cfed80c",
+      "bytes": 4171174,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "guia-vigilancia-saude-2024-v3",
+      "url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/vigilancia/guia-de-vigilancia-em-saude-volume-3-6a-edicao/@@display-file/file",
+      "sha256": "ddf5aec5f7067a1b3236deea140e4f521e34861faa446cd12358002349b79fe0",
+      "bytes": 1251457,
+      "baixado_em": "2026-08-31"
+    },
+    {
+      "id": "manual-tuberculose-2019",
+      "url": "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/svsa/tuberculose/manual-de-recomendacoes-e-controle-da-tuberculose-no-brasil-2a-ed.pdf/@@display-file/file",
+      "sha256": "7578aba6cdd520237144bf1686c56ca4a887e62bc38b66f42e8827d28a2feeab",
+      "bytes": 3759027,
+      "baixado_em": "2026-08-31"
+    },
+    {
       "id": "pcdt-asma-2021",
       "url": "https://www.gov.br/conitec/pt-br/midias/protocolos/20210830_pcdt_asma_pt14.pdf/@@display-file/file",
       "sha256": "ba78f1b3b0d95d1038a44e30dbdcf971734ba898e4f033ddc1970d99f2394ff8",
