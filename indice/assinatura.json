@@ -1,0 +1,87 @@
+{
+ "b": 0.75,
+ "bm25": {
+  "comprimento_medio": 164.13583138173303,
+  "n_documentos": 4270,
+  "vocabulario": 37034
+ },
+ "commit_fatiador": "d0ecd57",
+ "data": "2026-09-14T18:26:20",
+ "digest_modelo": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+ "dimensao": 1024,
+ "fontes_de_fora": {
+  "pcdt-dm2-2024": "superada"
+ },
+ "fontes_indexadas": [
+  "pcdt-dm2-2026",
+  "pcdt-asma-2021",
+  "pcdt-dpoc-2025",
+  "pcdt-dislipidemia-2019",
+  "pcdt-has-2025",
+  "guia-vigilancia-saude-2024-v1",
+  "guia-vigilancia-saude-2024-v2",
+  "guia-vigilancia-saude-2024-v3",
+  "manual-tuberculose-2019",
+  "calendario-vacinacao-2026"
+ ],
+ "k1": 1.2,
+ "modelo": "bge-m3",
+ "n_pedacos": 4270,
+ "recusados": [
+  {
+   "id": "pcdt-asma-2021#ap-ndice-2/preambulo.20",
+   "n_caracteres": 4507,
+   "sha256_texto": "b9174a1ac8d2c37d"
+  },
+  {
+   "id": "pcdt-asma-2021#ap-ndice-2/preambulo.30",
+   "n_caracteres": 4279,
+   "sha256_texto": "fb760b50d24ea340"
+  },
+  {
+   "id": "pcdt-asma-2021#ap-ndice-2/preambulo.34",
+   "n_caracteres": 4655,
+   "sha256_texto": "97a3fed9cefdb0ca"
+  },
+  {
+   "id": "pcdt-asma-2021#ap-ndice-2/preambulo.41",
+   "n_caracteres": 3667,
+   "sha256_texto": "ae998c97825e363a"
+  },
+  {
+   "id": "pcdt-has-2025#termo-de-esclarecimento-/preambulo.9",
+   "n_caracteres": 5523,
+   "sha256_texto": "393f388af7f5d87f"
+  },
+  {
+   "id": "pcdt-has-2025#termo-de-esclarecimento-/preambulo.11",
+   "n_caracteres": 6130,
+   "sha256_texto": "0b2252bdf5ae366e"
+  },
+  {
+   "id": "pcdt-has-2025#termo-de-esclarecimento-/preambulo.13",
+   "n_caracteres": 5723,
+   "sha256_texto": "269f0f0fc1462915"
+  },
+  {
+   "id": "pcdt-has-2025#termo-de-esclarecimento-/preambulo.15",
+   "n_caracteres": 5841,
+   "sha256_texto": "09c89bb0ce4b8baa"
+  },
+  {
+   "id": "pcdt-has-2025#termo-de-esclarecimento-/preambulo.17",
+   "n_caracteres": 6265,
+   "sha256_texto": "fd6587df8bba309e"
+  },
+  {
+   "id": "pcdt-has-2025#termo-de-esclarecimento-/preambulo.19",
+   "n_caracteres": 5221,
+   "sha256_texto": "eedbbbc06b5c70ca"
+  }
+ ],
+ "sha256_ids": "b57c323262900e0abd91aa306efe225c9451a6d4ae95d3420b57360476839f86",
+ "sha256_pedacos": "4934676b5fe638219356a60e0e23dbd44449b136b1de5896a1b4046ff87372ac",
+ "sha256_vetores": "d175c7657d1790057c1711af24abb2e8c9d59f76eaf73c7911d853f9bbcf6038",
+ "versao_ollama": "0.34.0",
+ "versao_tokenizador": "1"
+}

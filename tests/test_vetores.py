@@ -14,6 +14,7 @@ from geracao_ancorada.estante.vetores import (
     DIMENSAO,
     TextoLongoDemais,
     vetorizar_consulta,
+    vetorizar_corpus,
     vetorizar_documentos,
 )
 
@@ -164,3 +165,42 @@ def test_erro_nomeia_o_texto_culpado_e_nao_o_primeiro_do_lote():
 
     assert "tabela do termo" in str(erro.value)
     assert "curto" not in str(erro.value)
+
+
+def test_vetorizar_corpus_separa_os_recusados_em_vez_de_abortar():
+    """A indexação inteira não pode morrer por causa de um pedaço grande.
+
+    Quem chama `vetorizar_documentos` quer o erro alto, porque uma consulta
+    recusada é um defeito. A indexação quer a lista: ela anota quem ficou de
+    fora, segue com o resto, e o motivo entra na assinatura do índice.
+    """
+    grande = "tabela do termo de esclarecimento"
+
+    def chamar(corpo):
+        if any(t == grande for t in corpo["input"]):
+            return 400, {"error": "the input length exceeds the context length"}
+        return 200, {"embeddings": [[1.0] * DIMENSAO for _ in corpo["input"]]}
+
+    saida = vetorizar_corpus(["um", grande, "dois", "três"], lote=2, chamar=chamar)
+
+    assert saida.recusados == [1]
+    assert saida.aceitos == [0, 2, 3]
+    assert saida.matriz.shape == (3, DIMENSAO)
+
+
+def test_vetorizar_corpus_sem_recusa_nenhuma_devolve_tudo_na_ordem():
+    chamar = ollama_falso()
+
+    saida = vetorizar_corpus(["um", "dois", "três"], lote=2, chamar=chamar)
+
+    assert saida.recusados == []
+    assert saida.aceitos == [0, 1, 2]
+    assert saida.matriz.shape == (3, DIMENSAO)
+
+
+def test_vetorizar_corpus_descarrega_o_modelo_no_fim():
+    chamar = ollama_falso()
+
+    vetorizar_corpus(["um", "dois", "três"], lote=1, chamar=chamar)
+
+    assert chamar.chamadas[-1]["keep_alive"] == "0"

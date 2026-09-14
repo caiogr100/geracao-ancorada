@@ -6,11 +6,17 @@ cardiovascular." numa linha e desenha a tabela adiante; o fatiador separa as
 duas, e a tabela entra no índice como " | Anamnese | \n- Sexo - Idade -
 Tabagismo", sem conter "Quadro 5" nem uma palavra do que ela é.
 
-O alcance foi medido, e é pequeno: das 1.167 tabelas indexáveis do corpus, só
-**163 (14%)** têm alguma legenda na própria seção. Regra de adjacência pura —
-a última legenda antes da tabela na ordem do documento, sem olhar a seção — foi
-medida também e não cobre mais (13%), além de produzir ligações de até 31
-páginas de distância. Fica a da seção.
+O alcance foi medido, e é pequeno: das 1.167 tabelas indexáveis do corpus,
+**115 (10%)** recebem legenda desta regra. O teto do que seria alcançável sem
+sair da seção é 163 (14%), que são as tabelas com alguma legenda na própria
+seção, antes ou depois delas. A diferença de 48 são as tabelas cuja única
+legenda da seção vem DEPOIS delas.
+
+A regra de adjacência pura, que é a última legenda antes da tabela na ordem do
+documento sem olhar a seção, foi medida também. Ela alcança 675 tabelas (58%),
+e é esse alcance que a desqualifica: as ligações que ela cria têm mediana de 65
+páginas de distância e chegam a 410, então a maior parte do que ela alcança é
+legenda de outro assunto. Fica a da seção, com a cobertura menor.
 
 Duas exigências da forma da legenda pagam sozinhas o que custam, e as duas
 saíram do corpus: a pontuação depois do número separa a legenda ("Quadro 5.

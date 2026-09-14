@@ -26,6 +26,8 @@ troca. Mantê-las separadas custa uma linha agora e evita que a troca compile,
 rode e devolva recall pior sem erro nenhum.
 """
 
+from dataclasses import dataclass
+
 import numpy as np
 
 MODELO = "bge-m3"
@@ -89,6 +91,18 @@ def _culpado(textos, modelo, keep_alive, chamar) -> str:
     return "o Ollama recusou " + ", ".join(recusados)
 
 
+def _descarregar(modelo, chamar) -> None:
+    """Solta a memória de vídeo que o modelo de embedding está segurando.
+
+    O gerador entra logo depois da indexação e disputa a mesma placa. Amarrar
+    isso ao último lote foi a primeira tentativa e não sobrevive ao caminho do
+    erro, onde o último lote pode ser justamente o que foi recusado; por isso é
+    um passo próprio. A entrada vazia foi conferida contra o servidor, que a
+    aceita e devolve 200.
+    """
+    _pedir([""], modelo, DESCARREGAR, chamar)
+
+
 def _normalizar(bruto: list[list[float]]) -> np.ndarray:
     matriz = np.asarray(bruto, dtype=np.float32)
     if matriz.shape[1] != DIMENSAO:
@@ -121,6 +135,69 @@ def vetorizar_documentos(
         )
         matrizes.append(_normalizar(bruto))
     return np.vstack(matrizes)
+
+
+@dataclass(frozen=True)
+class Vetorizacao:
+    """O resultado de vetorizar um corpus inteiro, com quem ficou de fora.
+
+    A posição na matriz identifica o pedaço em todo o resto do caminho, então
+    quem indexa precisa descartar do registro exatamente as posições listadas
+    em `recusados`, na mesma passada.
+    """
+
+    matriz: np.ndarray
+    aceitos: list[int]
+    recusados: list[int]
+
+
+def vetorizar_corpus(
+    textos: list[str],
+    *,
+    modelo: str = MODELO,
+    lote: int = LOTE,
+    chamar=_chamar_ollama,
+) -> Vetorizacao:
+    """Vetoriza o corpus anotando quem o servidor recusou, sem abortar.
+
+    A diferença para `vetorizar_documentos` é de política, e ela é deliberada.
+    Uma consulta recusada é um defeito e tem que estourar na hora. Um pedaço
+    recusado na indexação é um fato do corpus: a indexação segue sem ele e o
+    registra, para que a lista de ausentes seja conferível depois em vez de
+    depender de alguém ter lido a saída do terminal.
+    """
+    aceitos: list[int] = []
+    recusados: list[int] = []
+    matrizes = []
+    partes = [
+        list(range(i, min(i + lote, len(textos)))) for i in range(0, len(textos), lote)
+    ]
+    for indices in partes:
+        try:
+            bruto = _pedir([textos[i] for i in indices], modelo, RESIDENTE, chamar)
+        except TextoLongoDemais:
+            # O 400 condena o lote, e não o texto. Aqui cada um é tentado
+            # sozinho, e só quem for recusado de novo fica de fora.
+            for i in indices:
+                try:
+                    um = _pedir([textos[i]], modelo, RESIDENTE, chamar)
+                except TextoLongoDemais:
+                    recusados.append(i)
+                else:
+                    aceitos.append(i)
+                    matrizes.append(_normalizar(um))
+            continue
+        aceitos.extend(indices)
+        matrizes.append(_normalizar(bruto))
+
+    _descarregar(modelo, chamar)
+
+    vazia = np.zeros((0, DIMENSAO), dtype=np.float32)
+    return Vetorizacao(
+        matriz=np.vstack(matrizes) if matrizes else vazia,
+        aceitos=aceitos,
+        recusados=recusados,
+    )
 
 
 def vetorizar_consulta(

@@ -52,6 +52,31 @@ def test_secao_longa_e_quebrada_mas_cada_parte_guarda_a_propria_pagina(fonte):
     assert pedacos[-1].pagina_final == 13
 
 
+def test_pedacos_da_mesma_secao_tem_id_diferente(fonte):
+    """O id é a chave do registro e do cache do índice, e tem que ser único.
+
+    A seção quebrada pelo teto é onde dois pedaços dividem fonte, parte e
+    seção, e só o contador os separa. Não havia teste que exigisse isso, e
+    trocar o contador por um número fixo deixava 4.280 pedaços do corpus com
+    1.653 id distintos sem nada ficar vermelho.
+    """
+    blocos = [texto(1, "1. INTRODUÇÃO")]
+    blocos += [texto(pagina, "z" * 900) for pagina in (10, 11, 12)]
+
+    pedacos = fatiar(fonte, blocos)
+
+    assert len(pedacos) > 1
+    assert len({p.id for p in pedacos}) == len(pedacos)
+
+
+@pytest.mark.corpus
+def test_nenhum_id_se_repete_no_corpus(pedacos_do_corpus):
+    """A mesma exigência, sobre os onze PDF e não sobre a fixtura."""
+    ids = [p.id for p in pedacos_do_corpus]
+
+    assert len(set(ids)) == len(ids)
+
+
 def test_tabela_nao_se_funde_com_o_texto_ao_lado(fonte):
     blocos = [
         texto(7, "1. RASTREAMENTO"),
@@ -79,18 +104,33 @@ def test_cabecalho_sustenta_o_pedaco_fora_do_documento(fonte):
 
 
 def test_referencias_ficam_marcadas_e_nao_viram_secao(fonte):
+    """A suspensão depois de REFERÊNCIAS, e a fixtura tem que chegar nela.
+
+    A primeira versão numerava as referências 15 e 16 logo depois da seção 2,
+    e a regra da sequência já rejeita 15 depois de 2 antes de a suspensão ser
+    consultada: o teste ficava verde com a suspensão apagada do código. Sem
+    ela, 438 pedaços de bibliografia dos PCDT entram no índice.
+
+    A lista de verdade começa em "1.", e o que a suspensão segura é a
+    referência cujo número CONTINUA a seção de REFERÊNCIAS. Aqui a seção é a 2
+    e a referência 3 a continua. Ela ocupa duas linhas, como no PDF, porque a
+    segunda linha é o conteúdo que a "seção 3" ganharia.
+    """
     blocos = [
         texto(1, "1. INTRODUÇÃO"),
         texto(1, "c" * 200),
         texto(40, "2. REFERÊNCIAS"),
-        texto(40, "15. Padhi S. Type II diabetes mellitus: a review. " + "d" * 160),
-        texto(41, "16. Brasil. Ministério da Saúde. Portaria nº 62. " + "e" * 160),
+        texto(40, "1. Padhi S. Type II diabetes mellitus: a review. " + "d" * 160),
+        texto(40, "2. Brasil. Ministério da Saúde. Portaria nº 62. " + "e" * 160),
+        texto(41, "3. American Diabetes Association. Standards of Care in Diabetes."),
+        texto(41, "Diabetes Care. 2024;47(Suppl 1):S1-S4. " + "f" * 160),
     ]
     pedacos = fatiar(fonte, blocos)
 
     uteis = [p for p in pedacos if not p.descartavel]
     assert [p.secao for p in uteis] == ["1"]
     assert all(p.secao == "2" for p in pedacos if p.descartavel)
+    assert any("Standards of Care" in p.texto for p in pedacos if p.descartavel)
 
 
 def test_marco_reinicia_a_numeracao(fonte):
@@ -110,15 +150,37 @@ def test_marco_reinicia_a_numeracao(fonte):
 
 
 def test_fragmento_curto_demais_nao_sobrevive_sozinho(fonte):
+    """O piso varre o fragmento solto, e ele tem que estar mesmo SOLTO.
+
+    A fixtura precisa deixar o fragmento num pedaço que não ABRE a seção, senão
+    o piso nem chega a ser consultado: quem abre seção fica por curto que seja,
+    porque é todo o conteúdo que aquela seção tem. Aqui a seção já foi aberta
+    por um corpo que passa do teto, e o "2017;" — que é o rodapé de uma
+    referência, a forma em que isso aparece nos PCDT — vem depois dele.
+    """
     blocos = [
         texto(1, "1. INTRODUÇÃO"),
+        texto(1, "O diabete melito tipo 2 " + "x" * TETO),
         texto(1, "2017;"),
-        texto(1, "h" * 300),
     ]
     pedacos = fatiar(fonte, blocos)
 
     assert len(pedacos) == 1
-    assert "2017;" in pedacos[0].texto
+    assert "2017;" not in pedacos[0].texto
+
+
+def test_fragmento_curto_que_abre_a_secao_fica(fonte):
+    """A exceção do piso, que é o que o impede de apagar seção curta."""
+    blocos = [
+        texto(1, "1. INTRODUÇÃO"),
+        texto(1, "O diabete melito tipo 2 " + "x" * 300),
+        texto(1, "2. SIGLAS"),
+        texto(1, "DM2, HAS"),
+    ]
+    pedacos = fatiar(fonte, blocos)
+
+    assert [p.secao for p in pedacos] == ["1", "2"]
+    assert pedacos[1].texto == "DM2, HAS"
 
 
 def test_secao_curta_nao_engole_o_conteudo_da_seguinte(fonte):

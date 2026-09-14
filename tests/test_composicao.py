@@ -151,17 +151,91 @@ def test_apendice_clinico_continua_no_indice():
 
 
 def test_equipe_multiprofissional_no_corpo_nao_derruba_a_secao():
-    """"Equipe" sozinha é palavra de clínica, e o PCDT a usa o tempo todo."""
+    """"Equipe" sozinha é palavra de clínica, e o PCDT a usa o tempo todo.
+
+    O pedaço tem que estar DENTRO de um bloco de anexo para que este teste
+    signifique alguma coisa: fora dele o corte nem é cogitado, e a fixtura
+    passaria com qualquer marca, inclusive com "EQUIPE" pelada. E o bloco é
+    "ANEXO" de propósito, porque o `pcdt-has-2025` e o `pcdt-dm2-2026` publicam
+    o protocolo inteiro como anexo de portaria: os 117 e os 105 pedaços do
+    corpo clínico, insulina e tudo, viajam com `parte="ANEXO"`. Uma marca
+    frouxa aqui não apaga um apêndice, apaga o protocolo.
+
+    Os dois textos são literais do `pcdt-has-2025`.
+    """
     pedacos = [
         pedaco(
             "pcdt-has-2025",
-            parte="",
-            titulo_secao="Tratamento não farmacológico",
-            texto="acompanhamento pela equipe multiprofissional da atenção básica",
-        )
+            parte="ANEXO",
+            secao="10",
+            titulo_secao="ABORDAGEM TERAPÊUTICA",
+            texto=(
+                " | A equipe de saúde deve se organizar junto aos profissionais "
+                "especializados, como os\ncomponentes das equipes multiprofissionais"
+            ),
+        ),
+        pedaco(
+            "pcdt-has-2025",
+            parte="ANEXO",
+            secao="10.2",
+            titulo_secao="Tratamento farmacológico",
+            texto="hidroclorotiazida 25 mg, um comprimido por via oral ao dia",
+        ),
     ]
 
-    assert len(indexaveis(pedacos)) == 1
+    assert len(indexaveis(pedacos)) == 2
+
+
+def test_metodologia_no_corpo_nao_derruba_a_secao():
+    """O mesmo cuidado do teste acima, para a segunda marca.
+
+    O `pcdt-has-2025` tem uma seção chamada "METODOLOGIA" no corpo do
+    protocolo, a 2, que só remete ao apêndice. A marca medida é "METODOLOGIA
+    DE BUSCA", e afrouxá-la para a palavra sozinha casava com esse título e
+    tirava os mesmos 222 pedaços de protocolo que a marca frouxa de equipe
+    tirava, com a suíte inteira verde. Rótulo e texto são literais do PDF.
+    """
+    pedacos = [
+        pedaco(
+            "pcdt-has-2025",
+            parte="ANEXO",
+            secao="2",
+            titulo_secao="METODOLOGIA",
+            texto=(
+                "O processo de desenvolvimento desse PCDT seguiu as recomendações "
+                "das Diretrizes\nMetodológicas de Elaboração de Diretrizes Clínicas "
+                "do Ministério da Saúde. Uma descrição mais\ndetalhada da "
+                "metodologia está disponível no Apêndice 1."
+            ),
+        ),
+        pedaco(
+            "pcdt-has-2025",
+            parte="ANEXO",
+            secao="10.2",
+            titulo_secao="Tratamento farmacológico",
+            texto="hidroclorotiazida 25 mg, um comprimido por via oral ao dia",
+        ),
+    ]
+
+    assert len(indexaveis(pedacos)) == 2
+
+
+@pytest.mark.corpus
+def test_o_censo_do_corpus_e_o_que_esta_publicado(pedacos_do_corpus):
+    """Os três números que o README, as docstrings e o DECISOES.md repetem.
+
+    Nenhum teste os prendia, e por isso uma regra podia mover 222 pedaços com
+    a suíte verde. Se este teste ficar vermelho, ou a mudança foi de propósito
+    e os documentos precisam do número novo, ou não foi e algo quebrou. A
+    extração é determinística, então ele não pisca sozinho.
+    """
+    fontes = carregar_manifesto(MANIFESTO)
+
+    indice = indexaveis(pedacos_do_corpus, superadas=superadas(fontes))
+
+    assert len(pedacos_do_corpus) == 4499
+    assert len(indice) == 4280
+    assert sum(1 for p in indice if p.tipo == "tabela") == 1167
 
 
 @pytest.mark.corpus

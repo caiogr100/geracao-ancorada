@@ -80,6 +80,21 @@ def test_sem_ponto_so_vale_para_titulo_em_caixa_alta():
     assert detectar("2 pacientes foram excluídos da análise", (1,)) is None
 
 
+def test_titulo_de_uma_letra_nao_e_titulo():
+    # O piso de comprimento da variante sem ponto, que barra a sigla solta de
+    # uma legenda ou de uma coluna numerada ("1 DM2") sem barrar a seção curta
+    # de verdade ("1 SIGLAS").
+    #
+    # Ao contrário das outras regras deste arquivo, este piso NÃO sai de uma
+    # grafia conferida: varri os onze PDF e nenhuma linha deles é decidida por
+    # ele — afrouxá-lo para uma letra devolve o corpus inteiro igual, 4.499
+    # pedaços idênticos. Ele fica como guarda declarada, e o teste existe para
+    # que o número pare de poder mudar sozinho.
+    assert detectar("1 DM2", None) is None
+    junta = detectar("1 SIGLAS", None)
+    assert junta is not None and junta.titulo == "SIGLAS"
+
+
 def test_titulo_longo_com_ponto_continua_valendo():
     # No Calendário de Vacinação o título da seção passa de 90 caracteres:
     # "1. Vacina adsorvida difteria, tétano e pertussis acelular (dTpa)...".
@@ -132,6 +147,13 @@ def test_mencao_a_cid_no_texto_corrido_nao_abre_capitulo():
         "CID-10, exceção para mortes fora do período",
     ) is None
     assert capitulo("DOENÇA MENINGOCÓCICA", "A doença meningocócica é uma infecção") is None
+    # As duas linhas acima são rejeitadas ANTES de chegar na regra dos
+    # dois-pontos — a primeira porque o título tem minúscula, a segunda porque a
+    # linha seguinte não traz "CID-10" nenhum. Quem isola a vírgula é este
+    # terceiro caso: título em caixa alta, "CID-10" presente, e só a pontuação
+    # separando a menção em prosa do cabeçalho de capítulo.
+    assert capitulo("DOENÇA MENINGOCÓCICA", "CID-10, exceção para mortes fora") is None
+    assert capitulo("DOENÇA MENINGOCÓCICA", "CID-10: A39") == "DOENÇA MENINGOCÓCICA"
 
 
 def test_capitulo_vale_com_o_cid_no_fim_da_linha():

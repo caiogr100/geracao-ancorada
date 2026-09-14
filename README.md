@@ -29,6 +29,25 @@ autor e dos orientadores.
 A licença do código e a dos dados serão definidas junto com o pré-registro
 do plano de análise.
 
+## Índice
+
+`python -m geracao_ancorada.estante indexar` reconstrói o índice inteiro a
+partir do manifesto e grava dois destinos. O pesado, com o texto de cada pedaço
+e a matriz de vetores, fica em `fontes/cache/estante/`, fora do repositório. O
+leve fica em `indice/` e é versionado: `registro.json` traz uma linha de
+etiquetas por pedaço (fonte, parte, seção, páginas, tipo, hash do texto) e
+`assinatura.json` diz com o que o índice foi construído (modelo e digest do
+Ollama, parâmetros do BM25, versão do tokenizador, commit do fatiador) e o que
+ficou de fora, com o motivo. Nenhum dos dois contém texto de fonte.
+
+O servidor de embedding recusa o pedaço que passa do teto de contexto em vez
+de cortá-lo em silêncio, e o pedaço recusado fica fora da matriz e dentro da
+assinatura, identificado pelo hash do texto. Na versão atual do corpus são 10
+de 4.280, todos tabela; o porquê está em `DECISOES.md`.
+`python -m geracao_ancorada.estante conferir` carrega o que está em disco e se
+recusa se a matriz, o registro e a assinatura divergirem, ou se o modelo no ar
+não for o que construiu o índice.
+
 ## Dívidas declaradas
 
 A tabela entra no índice sem a legenda que a nomeia, porque o fatiador separa
