@@ -28,3 +28,11 @@ autor e dos orientadores.
 
 A licença do código e a dos dados serão definidas junto com o pré-registro
 do plano de análise.
+
+## Dívidas declaradas
+
+A tabela entra no índice sem a legenda que a nomeia, porque o fatiador separa
+as duas e `estante/legenda.py` só recupera a legenda que estiver na mesma seção
+e antes da tabela. Das 1.167 tabelas do índice, 115 recebem a legenda de volta.
+O conserto definitivo pertence ao fatiador; o número fica registrado aqui para
+não aparecer depois como surpresa.
