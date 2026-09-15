@@ -50,7 +50,10 @@ def _chamar_ollama(corpo: dict) -> tuple[int, dict]:
     return resposta.status_code, resposta.json()
 
 
-def _pedir(textos, modelo, keep_alive, chamar):
+def _pedir(textos, modelo, keep_alive, chamar, *, isolar=True):
+    """Um pedido ao servidor. Com `isolar`, o 400 de um lote vira uma mensagem
+    que nomeia o texto culpado, ao custo de um pedido por texto do lote; quem
+    vai isolar por conta própria, como a indexação, passa `isolar=False`."""
     corpo = {
         "model": modelo,
         "input": list(textos),
@@ -60,7 +63,12 @@ def _pedir(textos, modelo, keep_alive, chamar):
     status, dados = chamar(corpo)
     if status == 400:
         erro = dados.get("error", "") if isinstance(dados, dict) else ""
-        raise TextoLongoDemais(f"{_culpado(textos, modelo, keep_alive, chamar)}: {erro}")
+        quem = (
+            _culpado(textos, modelo, keep_alive, chamar)
+            if isolar
+            else f"o Ollama recusou um lote de {len(textos)}"
+        )
+        raise TextoLongoDemais(f"{quem}: {erro}")
     if status != 200:
         raise RuntimeError(f"o Ollama devolveu {status}: {dados}")
     return dados["embeddings"]
@@ -99,8 +107,16 @@ def _descarregar(modelo, chamar) -> None:
     erro, onde o último lote pode ser justamente o que foi recusado; por isso é
     um passo próprio. A entrada vazia foi conferida contra o servidor, que a
     aceita e devolve 200.
+
+    Roda no `finally` das duas portas, então não pode levantar nada: se o
+    servidor caiu, o modelo já não está residente, e se respondeu outra coisa,
+    a exceção que interessa é a que já está em voo.
     """
-    _pedir([""], modelo, DESCARREGAR, chamar)
+    corpo = {"model": modelo, "input": [""], "truncate": False, "keep_alive": DESCARREGAR}
+    try:
+        chamar(corpo)
+    except Exception:
+        pass
 
 
 def _normalizar(bruto: list[list[float]]) -> np.ndarray:
@@ -128,12 +144,11 @@ def vetorizar_documentos(
 
     partes = [textos[i : i + lote] for i in range(0, len(textos), lote)]
     matrizes = []
-    for posicao, parte in enumerate(partes):
-        ultimo = posicao == len(partes) - 1
-        bruto = _pedir(
-            parte, modelo, DESCARREGAR if ultimo else RESIDENTE, chamar
-        )
-        matrizes.append(_normalizar(bruto))
+    try:
+        for parte in partes:
+            matrizes.append(_normalizar(_pedir(parte, modelo, RESIDENTE, chamar)))
+    finally:
+        _descarregar(modelo, chamar)
     return np.vstack(matrizes)
 
 
@@ -172,25 +187,32 @@ def vetorizar_corpus(
     partes = [
         list(range(i, min(i + lote, len(textos)))) for i in range(0, len(textos), lote)
     ]
-    for indices in partes:
-        try:
-            bruto = _pedir([textos[i] for i in indices], modelo, RESIDENTE, chamar)
-        except TextoLongoDemais:
-            # O 400 condena o lote, e não o texto. Aqui cada um é tentado
-            # sozinho, e só quem for recusado de novo fica de fora.
-            for i in indices:
-                try:
-                    um = _pedir([textos[i]], modelo, RESIDENTE, chamar)
-                except TextoLongoDemais:
-                    recusados.append(i)
-                else:
-                    aceitos.append(i)
-                    matrizes.append(_normalizar(um))
-            continue
-        aceitos.extend(indices)
-        matrizes.append(_normalizar(bruto))
-
-    _descarregar(modelo, chamar)
+    try:
+        for indices in partes:
+            try:
+                bruto = _pedir(
+                    [textos[i] for i in indices], modelo, RESIDENTE, chamar, isolar=False
+                )
+            except TextoLongoDemais:
+                # O 400 condena o lote, e não o texto. Aqui cada um é tentado
+                # sozinho, e só quem for recusado de novo fica de fora. O
+                # isolamento é este, uma vez só: com o de `_pedir` ligado, o
+                # lote de 16 com um recusado custava 34 pedidos.
+                for i in indices:
+                    try:
+                        um = _pedir([textos[i]], modelo, RESIDENTE, chamar, isolar=False)
+                    except TextoLongoDemais:
+                        recusados.append(i)
+                    else:
+                        aceitos.append(i)
+                        matrizes.append(_normalizar(um))
+                continue
+            aceitos.extend(indices)
+            matrizes.append(_normalizar(bruto))
+    finally:
+        # No finally, e não depois do laço: o erro que não é 400 também sai
+        # daqui, e o gerador não pode entrar em cima de um modelo residente.
+        _descarregar(modelo, chamar)
 
     vazia = np.zeros((0, DIMENSAO), dtype=np.float32)
     return Vetorizacao(

@@ -33,7 +33,7 @@ def _moldura(p: Pedaco) -> str:
 
 def texto_indexado_denso(p: Pedaco, legenda: str = "") -> str:
     """Moldura, legenda e texto — o que vai para o vetor."""
-    return "\n".join(filter(None, [_moldura(p), legenda, "", p.texto.strip()]))
+    return "\n".join(filter(None, [_moldura(p), legenda, p.texto.strip()]))
 
 
 def texto_indexado_lexico(p: Pedaco, legenda: str = "") -> str:

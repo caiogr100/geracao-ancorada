@@ -134,17 +134,21 @@ def test_dimensao_inesperada_e_recusada():
 
 
 @pytest.mark.gpu
-def test_tabela_mais_longa_nao_e_truncada_em_silencio():
-    """O único teste que separa "o Ollama funcionou" de "o Ollama cortou".
+def test_texto_acima_do_teto_e_recusado_e_nao_cortado():
+    """O único teste contra o servidor de verdade, e ele só separa "funcionou"
+    de "cortou" se o texto passa do teto.
 
-    Vetoriza um texto longo, troca a ÚLTIMA frase dele e vetoriza de novo. Se o
-    fim do texto estivesse sendo descartado, os dois vetores sairiam iguais.
+    A primeira versão trocava a última frase de um texto de 1.400 caracteres e
+    conferia que o vetor mudava. O teto medido é de cerca de 8.900 em prosa,
+    então nada era cortado de nenhum jeito, e o teste ficava verde com
+    `truncate: true`. Com `truncate: false`, o que se observa acima do teto é
+    a recusa, e não um vetor diferente.
     """
-    base = "Metas terapêuticas de hemoglobina glicada no diabete melito tipo 2. " * 20
-    um = vetorizar_consulta(base + "A dose inicial é de 500 mg por via oral.")
-    outro = vetorizar_consulta(base + "A dose inicial é de 850 mg por via oral.")
+    prosa = "Metas terapêuticas de hemoglobina glicada no diabete melito tipo 2. " * 200
+    assert len(prosa) > 12_000
 
-    assert float(um @ outro) < 0.999
+    with pytest.raises(TextoLongoDemais):
+        vetorizar_consulta(prosa)
 
 
 def test_erro_nomeia_o_texto_culpado_e_nao_o_primeiro_do_lote():
@@ -204,3 +208,60 @@ def test_vetorizar_corpus_descarrega_o_modelo_no_fim():
     vetorizar_corpus(["um", "dois", "três"], lote=1, chamar=chamar)
 
     assert chamar.chamadas[-1]["keep_alive"] == "0"
+
+
+def _servidor_que_cai_no_segundo_lote():
+    """Aceita o primeiro lote, devolve 500 no segundo, aceita o resto."""
+    chamadas = []
+
+    def chamar(corpo):
+        chamadas.append(corpo)
+        if len(chamadas) == 2:
+            return 500, {"error": "o servidor caiu"}
+        return 200, {"embeddings": [[1.0] * DIMENSAO for _ in corpo["input"]]}
+
+    chamar.chamadas = chamadas
+    return chamar
+
+
+def test_vetorizar_corpus_descarrega_o_modelo_mesmo_quando_o_servidor_falha():
+    """O descarregamento existe para o gerador não entrar em cima de um modelo
+    residente. Um erro que não seja o 400 saía da função com o modelo na placa,
+    que é justamente o caminho em que ninguém está olhando."""
+    chamar = _servidor_que_cai_no_segundo_lote()
+
+    with pytest.raises(RuntimeError):
+        vetorizar_corpus(["um", "dois", "três", "quatro", "cinco", "seis"], lote=2, chamar=chamar)
+
+    assert chamar.chamadas[-1]["keep_alive"] == "0"
+
+
+def test_vetorizar_documentos_descarrega_o_modelo_mesmo_quando_o_servidor_falha():
+    """A mesma garantia na porta da consulta em lote, que amarrava o
+    descarregamento ao último lote e não chegava nele quando um anterior caía."""
+    chamar = _servidor_que_cai_no_segundo_lote()
+
+    with pytest.raises(RuntimeError):
+        vetorizar_documentos(["um", "dois", "três", "quatro", "cinco", "seis"], lote=2, chamar=chamar)
+
+    assert chamar.chamadas[-1]["keep_alive"] == "0"
+
+
+def test_lote_com_um_recusado_custa_um_pedido_por_texto_e_nao_mais():
+    """O 400 vem do lote inteiro, e o isolamento do culpado acontecia duas
+    vezes: uma para montar a mensagem de erro, que a indexação descarta, e
+    outra na própria indexação. Um lote de 16 com um recusado custava 34
+    pedidos, e cada texto inocente era vetorizado três vezes."""
+    grande = "tabela do termo de esclarecimento"
+    chamadas = []
+
+    def chamar(corpo):
+        chamadas.append(corpo)
+        if any(t == grande for t in corpo["input"]):
+            return 400, {"error": "the input length exceeds the context length"}
+        return 200, {"embeddings": [[1.0] * DIMENSAO for _ in corpo["input"]]}
+
+    vetorizar_corpus(["um", grande, "dois", "três"], lote=4, chamar=chamar)
+
+    # O lote, um pedido por texto do lote, e o descarregamento.
+    assert len(chamadas) == 1 + 4 + 1

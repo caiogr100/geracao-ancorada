@@ -15,7 +15,7 @@ string de onde ela saiu.
 import re
 import unicodedata
 
-VERSAO = "1"
+VERSAO = "2"
 """Versão do tokenizador. Entra na assinatura do índice.
 
 Mudar qualquer regra daqui muda o vocabulário e invalida a estatística do
@@ -23,11 +23,14 @@ BM25 gravada. A assinatura é o que impede carregar um índice construído com
 outra versão e medir a diferença errada.
 """
 
-# O NFD decompõe o acento, e não o indicador ordinal: "1ª" continua "1ª"
-# depois da normalização. O corpus está cheio dos dois ("1ª dose" no
-# Calendário, "Art. 1º" na portaria que abre cada PCDT), então o mapa é
-# explícito.
-_ORDINAIS = str.maketrans({"ª": "a", "º": "o"})
+# O NFKD, e não o NFD: o de compatibilidade é o que leva "ª" para "a", "º"
+# para "o", "²" para "2" e "³" para "3", e o corpus tem os quatro ("1ª dose"
+# no Calendário, "Art. 1º" na portaria que abre cada PCDT, "kg/m²" no PCDT de
+# diabete, "mm³" no manual de tuberculose). O micro é o único que ele não
+# resolve: o sinal de micro (U+00B5) vira o mi grego (U+03BC), que continua
+# fora do alfabeto do token. O corpus escreve a dose em microgramas dos dois
+# jeitos, então os dois vão para "u", que é como a pergunta escreve "ug".
+_MICRO = str.maketrans({"µ": "u", "μ": "u"})
 
 # Ponto, vírgula, barra e hífen não quebram o token. São eles que seguram
 # "8.080", "1,73", "mg/dL" e "CKD-EPI", que é exatamente o que a prova
@@ -43,6 +46,12 @@ _SEPARADOR_INTERNO = re.compile(r"[-/]")
 _MILHAR = re.compile(r"(?<=\d)\.(?=\d{3}(?:\D|$))")
 
 _CAIXA_ATE = 5
+_COLADO_ATE = 8
+"""Comprimento até o qual um token com separador emite a forma colada.
+
+Cobre a sigla e a unidade ("dpp4", "ckdepi", "mgdl") e deixa de fora o número
+composto, que colado não corresponde a grafia nenhuma.
+"""
 """Comprimento até o qual o token com maiúscula emite a forma com caixa.
 
 É a regra com consequência clínica: dT é a dupla adulto e DT é a dupla
@@ -66,7 +75,7 @@ _FUNCIONAIS = frozenset(
 
 def dobrar(texto: str) -> str:
     """Tira o acento, resolve o ordinal e baixa a caixa."""
-    decomposto = unicodedata.normalize("NFD", texto.translate(_ORDINAIS))
+    decomposto = unicodedata.normalize("NFKD", texto).translate(_MICRO)
     sem_acento = "".join(c for c in decomposto if not unicodedata.combining(c))
     return sem_acento.casefold()
 
@@ -114,7 +123,12 @@ def _abrir(token: str) -> list[str]:
         for segmento in segmentos:
             acrescentar(segmento)
             acrescentar(_MILHAR.sub("", segmento))
-        acrescentar(_SEPARADOR_INTERNO.sub("", token))
+        # A forma colada é da sigla, e só dela: "DPP-4" vira "dpp4", que é
+        # como o corpus escreve. Colar número puro dava "8.0801990" para
+        # "8.080/1990", um posting que não existe em lugar nenhum.
+        colado = _SEPARADOR_INTERNO.sub("", _MILHAR.sub("", token))
+        if len(colado) <= _COLADO_ATE and any(c.isalpha() for c in colado):
+            acrescentar(colado)
 
     return formas
 
@@ -138,6 +152,18 @@ def tokenizar(texto: str) -> list[str]:
     return saida
 
 
+def _e_funcional(token: str) -> bool:
+    """A palavra funcional, na forma dobrada ou na forma com caixa.
+
+    Todo enunciado começa com maiúscula, então "A", "Não" e "Em" chegam aqui
+    também como "A|C", "Não|C" e "Em|C". Deixar essas passar faria "A|C" casar
+    com "vitamina A" e "hepatite A" em todo pedaço que os contenha.
+    """
+    if token.endswith(_MARCA_DE_CAIXA):
+        token = dobrar(token[: -len(_MARCA_DE_CAIXA)])
+    return token in _FUNCIONAIS
+
+
 def tokenizar_consulta(texto: str) -> list[str]:
     """Os tokens de uma consulta: os mesmos, menos as palavras funcionais."""
-    return [t for t in tokenizar(texto) if t not in _FUNCIONAIS]
+    return [t for t in tokenizar(texto) if not _e_funcional(t)]

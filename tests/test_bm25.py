@@ -10,7 +10,7 @@ contê-lo.
 import numpy as np
 import pytest
 
-from geracao_ancorada.estante.bm25 import construir
+from geracao_ancorada.estante.bm25 import BM25, construir
 
 
 @pytest.fixture
@@ -161,3 +161,37 @@ def test_idf_e_positiva_para_todo_termo_do_vocabulario(pedacos_do_corpus):
         "varredura parou de testar o que a frase dela diz"
     )
     assert negativos == []
+
+
+def test_mascara_de_inteiro_e_recusada():
+    """`~` sobre um vetor de inteiros é complemento de bits, e não negação:
+    `~[1, 0, 1, 0]` dá `[-2, -1, -2, -1]`, que indexa de trás para a frente e
+    zera as posições erradas em silêncio. A fusão vai montar a máscara a
+    partir do filtro de área e vigência, e é o primeiro consumidor de verdade."""
+    indice = construir([["dose"], ["dose"], ["outro"], ["dose"]])
+
+    with pytest.raises(ValueError):
+        indice.pontuar(["dose"], mascara=np.array([1, 0, 1, 0]))
+
+
+def test_mascara_de_outro_tamanho_e_recusada():
+    indice = construir([["dose"], ["dose"], ["outro"]])
+
+    with pytest.raises(ValueError):
+        indice.pontuar(["dose"], mascara=np.array([True, False]))
+
+
+def test_termo_conhecido_pontua_mesmo_num_indice_montado_a_mao():
+    """`pontuar` lia `_idf[token]` e `idf()` lia `.get`: um BM25 construído
+    direto pela dataclass, sem `_idf`, estourava no primeiro termo conhecido."""
+    indice = construir([["dose", "dose"], ["outro"]])
+    sem_idf = BM25(
+        postings=indice.postings,
+        comprimentos=indice.comprimentos,
+        n_documentos=indice.n_documentos,
+        comprimento_medio=indice.comprimento_medio,
+    )
+
+    escores = sem_idf.pontuar(["dose"])
+
+    assert escores.shape == (2,)

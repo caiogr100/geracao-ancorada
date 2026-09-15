@@ -5,6 +5,8 @@ parte das vezes o modelo ignora, mas quando a chamada cola num NÚMERO de dose
 ("4 U^109,111,112" vira "4 U109,111,112") ele pode ler 109 unidades de insulina.
 """
 
+import pytest
+
 from geracao_ancorada.fatiamento.extracao import _limpar, remover_chamadas
 
 
@@ -94,3 +96,28 @@ def test_parte_inteira_de_decimal_colado_nao_e_removida():
     # como sinal de chamada.
     assert remover_chamadas("variação entre0.23 menor") == "variação entre0.23 menor"
     assert remover_chamadas("expectativa para 76,0 anos") == "expectativa para 76,0 anos"
+
+
+@pytest.mark.corpus
+def test_texto_corrido_e_lido_fora_da_area_da_tabela():
+    """A afirmação central do fatiador, presa numa página conhecida.
+
+    Na página 11 do PCDT de diabete de 2026 mora o Quadro 5, com a linha de
+    anamnese "Sexo, Idade, Tabagismo". A página extraída de uma vez embaralha
+    a tabela com o parágrafo ao lado; lida fora das áreas de tabela, a linha
+    fica só no bloco de tabela.
+    """
+    from pathlib import Path
+
+    from geracao_ancorada.fatiamento.extracao import extrair
+
+    caminho = Path(__file__).resolve().parents[1] / "fontes" / "cache" / "pcdt-dm2-2026.pdf"
+    if not caminho.exists():
+        pytest.skip("corpus não baixado")
+
+    pagina = [b for b in extrair(caminho) if b.pagina == 11]
+    tabelas = [b for b in pagina if b.tipo == "tabela"]
+    textos = [b for b in pagina if b.tipo == "texto"]
+
+    assert any("Tabagismo" in b.texto for b in tabelas)
+    assert not any("Tabagismo" in b.texto for b in textos)

@@ -77,9 +77,17 @@ class BM25:
             saturada = frequencias * (self.k1 + 1) / (
                 frequencias + denominador_base[documentos]
             )
-            escores[documentos] += self._idf[token] * saturada
+            escores[documentos] += self._idf.get(token, 0.0) * saturada
 
         if mascara is not None:
+            # Só bool: `~` sobre inteiro é complemento de bits, e `~[1, 0]`
+            # dá `[-2, -1]`, que indexa de trás para a frente sem erro nenhum.
+            mascara = np.asarray(mascara)
+            if mascara.dtype != np.bool_ or mascara.shape != (self.n_documentos,):
+                raise ValueError(
+                    f"a máscara tem que ser bool com {self.n_documentos} posições, "
+                    f"e veio {mascara.dtype} com forma {mascara.shape}"
+                )
             escores[~mascara] = 0.0
         return escores
 

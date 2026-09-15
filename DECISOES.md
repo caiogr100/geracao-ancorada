@@ -96,6 +96,10 @@ diferença observável entre "funcionou" e "cortou".
 devolve 400 com "the input length exceeds the context length" quando
 `truncate` é false, e 200 com um vetor de 1.024 dimensões quando é true.
 
-**O que isso obriga.** O teste marcado `gpu` em `tests/test_vetores.py` vetoriza
-um texto longo, troca a última frase e confere que o vetor muda. Se o fim
-estivesse sendo descartado, os dois sairiam iguais.
+**O que isso obriga.** O teste marcado `gpu` em `tests/test_vetores.py` manda ao
+servidor uma prosa acima do teto e confere que a resposta é a recusa, e não um
+vetor. A primeira versão desse teste trocava a última frase de um texto de
+1.400 caracteres e conferia que o vetor mudava; como o teto é de cerca de 8.900,
+nada era cortado de nenhum jeito, e o teste ficava verde com `truncate: true`.
+Quem segura a regra no dia a dia é o teste com o servidor falso, que confere o
+campo em todo pedido.

@@ -251,3 +251,13 @@ def test_nenhuma_declaracao_de_conflito_de_interesse_sobrevive(pedacos_do_corpus
     assert not [
         p for p in sobrevivem if "Conflitos de interesses declarados" in p.texto
     ]
+
+    # O lado positivo, sem o qual um corte que apagasse o corpus inteiro
+    # passaria: o corte é por bloco (fonte, parte), e nos protocolos publicados
+    # como anexo de portaria o corpo clínico inteiro viaja com a parte "ANEXO".
+    def sobrevive(fonte_id, marca):
+        return any(p.fonte_id == fonte_id and marca in p.texto for p in sobrevivem)
+
+    assert sobrevive("pcdt-dislipidemia-2019", "Framingham")
+    assert sobrevive("pcdt-dm2-2026", "insulina NPH")
+    assert sobrevive("pcdt-has-2025", "losartana")

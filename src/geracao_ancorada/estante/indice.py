@@ -7,8 +7,8 @@ assinatura do que foi indexado, mora em `indice/` e é versionado: é o que os
 orientadores leem, e não contém uma linha de texto de fonte.
 
 O índice é sempre reconstruído inteiro. O que poupa o Ollama é o cache
-endereçado pelo conteúdo, com chave `sha256(modelo + texto que entra no
-encoder)`; reindexação parcial no lugar não existe, porque a classe de defeito
+endereçado pelo conteúdo, com chave `sha256(modelo + digest do modelo + texto
+que entra no encoder)`; reindexação parcial no lugar não existe, porque a classe de defeito
 "matriz e registro dessincronizados" deixa de existir em vez de ser testada.
 
 A posição na matriz é o identificador do pedaço em todo o caminho. Por isso o
@@ -77,6 +77,7 @@ class Assinatura:
     n_pedacos: int
     fontes_indexadas: list[str]
     fontes_de_fora: dict[str, str]
+    incluir_superadas: bool
     recusados: list[dict]
     sha256_pedacos: str
     sha256_ids: str
@@ -126,9 +127,12 @@ def _modelo_em_execucao(modelo: str = vetores.MODELO) -> tuple[str, str, str]:
 
 
 def _commit() -> str:
+    """O commit do código que indexou, com "-dirty" se a árvore tinha mudança
+    sem commit. A primeira assinatura do corpus dizia d0ecd57 e foi produzida
+    por código que esse commit não continha."""
     try:
         saida = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
+            ["git", "describe", "--always", "--dirty", "--abbrev=7"],
             cwd=RAIZ, capture_output=True, text=True, check=True,
         )
         return saida.stdout.strip()
@@ -143,8 +147,10 @@ def _agora() -> str:
 # --- indexar ------------------------------------------------------------------
 
 
-def _chave(modelo: str, texto: str) -> str:
-    return _sha256(f"{modelo}\x00{texto}".encode("utf-8"))
+def _chave(modelo: str, digest: str, texto: str) -> str:
+    """A chave leva o digest, e não só o nome: um `ollama pull` que troque o
+    modelo mantém o nome, e o cache reaproveitaria todos os vetores velhos."""
+    return _sha256(f"{modelo}\x00{digest}\x00{texto}".encode("utf-8"))
 
 
 def _ler_cache(caminho: Path) -> dict[str, list[float]]:
@@ -214,9 +220,14 @@ def indexar(
 
     # O cache poupa o servidor; quem não está nele é vetorizado agora, e quem
     # o servidor recusar fica de fora da matriz e dentro da assinatura.
+    nome, digest, versao = modelo_em_execucao()
+    if not digest:
+        raise IndiceDeOutroModelo(
+            f"o servidor não tem o modelo {modelo}, e um índice sem digest carregaria sempre"
+        )
     destino.mkdir(parents=True, exist_ok=True)
     cache = _ler_cache(destino / _CACHE)
-    chaves = [_chave(modelo, t) for t in densos]
+    chaves = [_chave(modelo, digest, t) for t in densos]
     faltam = [i for i, chave in enumerate(chaves) if chave not in cache]
     resultado = vetores.vetorizar_corpus(
         [densos[i] for i in faltam], modelo=modelo, chamar=chamar
@@ -270,11 +281,11 @@ def indexar(
     indice_lexico = bm25.construir(
         [lexico.tokenizar(texto_indexado_lexico(p, leg)) for p, leg in zip(pedacos, legendas)]
     )
-    nome, digest, versao = modelo_em_execucao()
     assinatura = Assinatura(
         n_pedacos=len(pedacos),
         fontes_indexadas=sorted({p.fonte_id for p in pedacos}, key=[p.fonte_id for p in pedacos].index),
         fontes_de_fora=de_fora,
+        incluir_superadas=incluir_superadas,
         recusados=recusados,
         sha256_pedacos=_sha256(pesado),
         sha256_ids=_sha256("\n".join(p.id for p in pedacos).encode("utf-8")),
@@ -310,7 +321,16 @@ def carregar(
     registro: Path = REGISTRO,
     modelo_em_execucao=_modelo_em_execucao,
 ) -> Estante:
-    """Carrega o índice, ou se recusa quando ele não é um índice só."""
+    """Carrega o índice, ou se recusa quando ele não é um índice só.
+
+    A assinatura grava três hashes, e os três são conferidos aqui, cada um
+    contra o arquivo que ele resume: a lista de ids contra o registro, os
+    bytes de `pedacos.jsonl` e os de `vetores.npy` contra o destino pesado.
+    Os dois últimos são o que pega "regenerei o pesado e esqueci o leve", em
+    que os ids continuam iguais e só o conteúdo mudou. A versão do tokenizador
+    também: o BM25 é reconstruído aqui com o tokenizador de agora, e se ele
+    não é o que assinou o índice, a estatística gravada na assinatura mente.
+    """
     assinatura = Assinatura(
         **json.loads((registro / _ASSINATURA).read_text(encoding="utf-8"))
     )
@@ -320,16 +340,24 @@ def carregar(
             f"o índice foi construído com {assinatura.modelo} ({assinatura.digest_modelo[:12]}) "
             f"e o servidor está com {digest[:12]}"
         )
+    if assinatura.versao_tokenizador != lexico.VERSAO:
+        raise IndiceDesalinhado(
+            f"o índice foi tokenizado pela versão {assinatura.versao_tokenizador} "
+            f"e o código está na {lexico.VERSAO}; reindexe"
+        )
 
     publicos = json.loads((registro / _REGISTRO).read_text(encoding="utf-8"))["pedacos"]
     ids_registro = [linha["id"] for linha in publicos]
     if _sha256("\n".join(ids_registro).encode("utf-8")) != assinatura.sha256_ids:
         raise IndiceDesalinhado("a lista de ids do registro não é a da assinatura")
 
+    pesado = (destino / _PEDACOS).read_bytes()
+    if _sha256(pesado) != assinatura.sha256_pedacos:
+        raise IndiceDesalinhado("os pedaços em disco não são os que a assinatura gravou")
     pedacos: list[Pedaco] = []
     legendas: list[str] = []
     nomes = {campo.name for campo in fields(Pedaco)}
-    for linha in (destino / _PEDACOS).read_text(encoding="utf-8").splitlines():
+    for linha in pesado.decode("utf-8").splitlines():
         if not linha:
             continue
         dados = json.loads(linha)
@@ -338,6 +366,8 @@ def carregar(
     if [p.id for p in pedacos] != ids_registro:
         raise IndiceDesalinhado("os pedaços em disco não são os do registro")
 
+    if _sha256((destino / _VETORES).read_bytes()) != assinatura.sha256_vetores:
+        raise IndiceDesalinhado("a matriz em disco não é a que a assinatura gravou")
     matriz = np.load(destino / _VETORES)
     if matriz.shape[0] != len(pedacos):
         raise IndiceDesalinhado(

@@ -94,6 +94,18 @@ def test_ordinal_dobra_para_a_letra():
     assert "1a" in tokenizar("1ª dose aos dois meses")
 
 
+def test_expoente_e_micro_viram_ascii():
+    """Medido nos onze PDF: 98 ocorrências em cerca de 60 pedaços, todas
+    clínicas. "kg/m²" e "mL/min/1,73 m²" no PCDT de diabete, "mm³" no manual
+    de tuberculose, e a dose em microgramas escrita de dois jeitos, com o
+    sinal de micro (U+00B5) e com o mi grego (U+03BC), no de asma e no de
+    DPOC. A pergunta escreve "kg/m2", "mm3" e "ug". Sem esta regra o "²"
+    sumia e o "µg" virava "g"."""
+    assert "kg/m2" in tokenizar("IMC ≥ 25 kg/m²")
+    assert "mm3" in tokenizar("plaquetas por mm³")
+    assert tokenizar("tiotrópio 5 μg e beclometasona 100 µg").count("ug") == 2
+
+
 def test_sigla_com_hifen_alcanca_a_forma_colada_do_corpus():
     """Conferido nos PDF: o corpus escreve DPP4 colado e nunca com hífen.
 
@@ -108,6 +120,18 @@ def test_sigla_com_hifen_alcanca_a_forma_colada_do_corpus():
     assert "dpp-4" in da_pergunta
     assert "dpp" in da_pergunta
     assert "glp-1" in do_corpus and "glp" in do_corpus
+
+
+def test_forma_colada_nao_sai_de_numero_puro():
+    """A forma colada existe para a sigla: "DPP-4" vira "dpp4", que é como o
+    corpus escreve. Aplicada a qualquer token com separador ela produzia
+    "8.0801990" para "8.080/1990" e "1,73" nem precisava, e cada uma dessas é
+    um posting a mais que não existe em lugar nenhum e um token a mais no
+    comprimento do documento, que é o que o BM25 usa para punir pedaço longo."""
+    assert "8.0801990" not in tokenizar("Lei nº 8.080/1990")
+    assert "8080/1990" in tokenizar("Lei nº 8.080/1990")
+    assert "dpp4" in tokenizar("DPP-4")
+    assert "ckdepi" in tokenizar("CKD-EPI")
 
 
 def test_sem_stemmer_e_de_proposito():
@@ -144,6 +168,18 @@ def test_consulta_preserva_o_termo_raro():
     assert "ighvz" in tokens
     assert "dt" in tokens
     assert "dT|C" in tokens
+
+
+def test_consulta_remove_a_palavra_funcional_tambem_na_forma_com_caixa():
+    """Todo enunciado começa com maiúscula, e "A", "Não" e "Em" têm até cinco
+    caracteres: o tokenizador emite "A|C", "Não|C" e "Em|C" para elas. A
+    stoplist tem que apagar essa forma também, senão "A|C" casa com "vitamina A"
+    e "hepatite A" em todo pedaço que os contenha, e o braço léxico passa a
+    pontuar por palavra funcional em toda consulta."""
+    tokens = tokenizar_consulta("A dose de dT. Não usar em gestantes? Em quem?")
+
+    assert "dT|C" in tokens
+    assert [t for t in tokens if t.endswith("|C")] == ["dT|C"]
 
 
 @pytest.mark.parametrize(

@@ -135,6 +135,22 @@ def test_superada_volta_quando_pedida(tmp_path):
     assert assinatura.fontes_de_fora == {}
 
 
+def test_assinatura_diz_se_o_indice_tem_superadas(tmp_path):
+    """A sonda contrafactual das insulinas constrói o índice com a superada
+    dentro. Sem o campo, os dois índices têm assinatura do mesmo formato e
+    nada diz qual dos dois está carregado."""
+    fontes = [fonte("pcdt-2026", substitui="pcdt-2024"), fonte("pcdt-2024")]
+    amb = ambiente(tmp_path, {"pcdt-2026": documento("nova"), "pcdt-2024": documento("velha")})
+
+    sem = indexar(fontes, **amb)
+    com = indexar(fontes, incluir_superadas=True, **amb)
+
+    assert sem.incluir_superadas is False
+    assert com.incluir_superadas is True
+    gravada = json.loads((amb["registro"] / "assinatura.json").read_text(encoding="utf-8"))
+    assert gravada["incluir_superadas"] is True
+
+
 def test_pedaco_recusado_fica_fora_da_matriz_e_dentro_da_assinatura(tmp_path):
     """A decisão do DECISOES.md: o recusado não entra, e fica registrado.
 
@@ -190,6 +206,32 @@ def test_cache_nao_atravessa_modelo(tmp_path):
     assert len(chamar.chamadas) > pedidos + 1
 
 
+def test_cache_nao_serve_vetor_de_outro_digest(tmp_path):
+    """Um `ollama pull` que troque o digest mantém o nome. Se a chave do cache
+    só levasse o nome, a reindexação reaproveitaria todos os vetores velhos, a
+    assinatura gravaria o digest novo em cima deles e `carregar` passaria."""
+    fontes = [fonte("pcdt-a")]
+    chamar = ollama_falso()
+    amb = ambiente(tmp_path, {"pcdt-a": documento("alfa")}, chamar=chamar, digest="digest-a")
+
+    indexar(fontes, **amb)
+    pedidos = len(chamar.chamadas)
+    amb["modelo_em_execucao"] = lambda: ("bge-m3", "digest-b", "0.34.0")
+    indexar(fontes, **amb)
+
+    assert len(chamar.chamadas) > pedidos + 1
+
+
+def test_digest_vazio_e_recusado_ao_indexar(tmp_path):
+    """Sem o modelo na lista do servidor o digest vem vazio, e vazio bate com
+    vazio: o índice seria assinado por modelo nenhum e carregaria sempre."""
+    fontes = [fonte("pcdt-a")]
+    amb = ambiente(tmp_path, {"pcdt-a": documento("alfa")}, digest="")
+
+    with pytest.raises(IndiceDeOutroModelo):
+        indexar(fontes, **amb)
+
+
 # --- o que se recusa a carregar ---------------------------------------------
 
 
@@ -227,6 +269,60 @@ def test_recusa_carregar_indice_desalinhado(tmp_path):
     pesado.write_text("\n".join(linhas) + "\n", encoding="utf-8")
     with pytest.raises(IndiceDesalinhado):
         carregar_()
+
+
+def _carregar(amb):
+    return carregar(destino=amb["destino"], registro=amb["registro"],
+                    modelo_em_execucao=amb["modelo_em_execucao"])
+
+
+def test_texto_trocado_com_os_ids_intactos_e_recusado(tmp_path):
+    """Só o `sha256_pedacos` acusa: o registro e a lista de ids continuam iguais.
+
+    É o caso "regenerei o pesado com outro fatiador e esqueci o leve". A
+    assinatura gravava esse hash desde o primeiro dia e `carregar` nunca o lia.
+    """
+    fontes = [fonte("pcdt-a")]
+    amb = ambiente(tmp_path, {"pcdt-a": documento("alfa")})
+    indexar(fontes, **amb)
+
+    pesado = amb["destino"] / "pedacos.jsonl"
+    linhas = pesado.read_text(encoding="utf-8").splitlines()
+    primeira = json.loads(linhas[0])
+    primeira["texto"] = "outro texto, mesmo id"
+    linhas[0] = json.dumps(primeira, ensure_ascii=False)
+    pesado.write_text("\n".join(linhas) + "\n", encoding="utf-8")
+
+    with pytest.raises(IndiceDesalinhado):
+        _carregar(amb)
+
+
+def test_matriz_trocada_com_o_mesmo_tamanho_e_recusada(tmp_path):
+    """Só o `sha256_vetores` acusa: o número de linhas bate e os ids também."""
+    fontes = [fonte("pcdt-a")]
+    amb = ambiente(tmp_path, {"pcdt-a": documento("alfa")})
+    indexar(fontes, **amb)
+
+    matriz = np.load(amb["destino"] / "vetores.npy")
+    matriz[0, 0] += 0.01
+    np.save(amb["destino"] / "vetores.npy", matriz)
+
+    with pytest.raises(IndiceDesalinhado):
+        _carregar(amb)
+
+
+def test_indice_de_outra_versao_do_tokenizador_e_recusado(tmp_path, monkeypatch):
+    """O BM25 é reconstruído ao carregar com o tokenizador de agora; se ele não
+    é o que assinou o índice, a estatística gravada na assinatura mente."""
+    from geracao_ancorada.estante import lexico
+
+    fontes = [fonte("pcdt-a")]
+    amb = ambiente(tmp_path, {"pcdt-a": documento("alfa")})
+    indexar(fontes, **amb)
+    monkeypatch.setattr(lexico, "VERSAO", "999")
+
+    with pytest.raises(IndiceDesalinhado):
+        _carregar(amb)
 
 
 def test_indice_de_outro_modelo_e_recusado(tmp_path):
