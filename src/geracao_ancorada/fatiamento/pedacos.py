@@ -93,12 +93,23 @@ class Pedaco:
         return f"{self.cabecalho}\n\n{self.texto}"
 
 
-def _quebrar(blocos: list[Bloco], teto: int) -> list[list[Bloco]]:
+def _tamanho(blocos: list[Bloco]) -> int:
+    return sum(len(b.texto) + 1 for b in blocos) - 1
+
+
+def _quebrar(blocos: list[Bloco], teto: int, piso: int = MINIMO) -> list[list[Bloco]]:
     """Quebra por parágrafo, e só junta parágrafo enquanto couber no teto.
 
     Trabalha sobre os blocos, e não sobre o texto já colado, porque cada parte
     precisa saber de que páginas ela veio: é a página que sustenta a citação, e
     uma seção longa que virasse "p. 1-58" não sustenta nada.
+
+    A última parte não pode ficar abaixo do piso por culpa do corte: medido nos
+    onze PDF, o piso descartava 125 caudas, e 19 eram a frase que fecha a
+    seção. Quando isso acontece, os últimos parágrafos da parte anterior descem
+    para a cauda, enquanto ela couber no teto e a anterior não esvaziar. Se não
+    há parágrafo que desça ou nenhum a ponha acima do piso, fica como está, e o
+    piso decide.
     """
     partes: list[list[Bloco]] = []
     atual: list[Bloco] = []
@@ -113,6 +124,16 @@ def _quebrar(blocos: list[Bloco], teto: int) -> list[list[Bloco]]:
 
     if atual:
         partes.append(atual)
+
+    if len(partes) >= 2 and _tamanho(partes[-1]) < piso:
+        anterior, cauda = partes[-2], partes[-1]
+        for quantos in range(1, len(anterior)):
+            candidata = anterior[-quantos:] + cauda
+            if _tamanho(candidata) > teto:
+                break
+            if _tamanho(candidata) >= piso:
+                partes[-2], partes[-1] = anterior[:-quantos], candidata
+                break
     return partes
 
 
@@ -261,6 +282,13 @@ def fatiar(fonte: Fonte, blocos: list[Bloco]) -> list[Pedaco]:
             adiante = blocos[posicao + 1].texto if posicao + 1 < len(blocos) else ""
             atras = blocos[posicao - 1].texto if posicao else ""
             nome = capitulo(bloco.texto, adiante, atras) or marco(bloco.texto)
+            # Dentro da bibliografia, a linha de citação também começa com
+            # "anexo" ("Portaria de Consolidação nº 2, anexo XXV. Disponível
+            # em:", "Anexo V – Sistema Nacional de Vigilância Epidemiológica")
+            # e reabria a estrutura no meio das referências, que saíam úteis.
+            # O título de parte vem em caixa alta; a citação, não.
+            if nome is not None and suspenso and nome != nome.upper():
+                nome = None
             if nome is not None:
                 # Título remontado: a primeira metade já entrou no acumulado e
                 # sairia como conteúdo do capítulo anterior.
@@ -296,6 +324,16 @@ def fatiar(fonte: Fonte, blocos: list[Bloco]) -> list[Pedaco]:
                     pedacos.extend(_emitir(fonte, junta, acumulado, parte, suspenso))
                     junta, acumulado, suspenso = Junta(numero="", titulo=nome, nivel=()), [], False
                     continue
+                # O cabeçalho da bibliografia vem antes do título sem marca,
+                # porque "BIBLIOGRAFIA" também é caixa alta sem ponto: o
+                # capítulo de influenza tem REFERÊNCIAS e, logo depois,
+                # BIBLIOGRAFIA, e o segundo cabeçalho era tomado por título e
+                # reabria o capítulo no meio das citações.
+                if abre_referencias(bloco.texto):
+                    pedacos.extend(_emitir(fonte, junta, acumulado, parte, suspenso))
+                    junta, acumulado = None, []
+                    suspenso = True
+                    continue
                 # O título pelado da seção geral só fecha a bibliografia; ele
                 # não vira rótulo, porque no capítulo de doença a mesma forma
                 # é o nível de cima do subtítulo ("CARACTERÍSTICAS GERAIS"
@@ -305,11 +343,6 @@ def fatiar(fonte: Fonte, blocos: list[Bloco]) -> list[Pedaco]:
                     # acumulado ainda é citação e tem que sair descartável.
                     pedacos.extend(_emitir(fonte, junta, acumulado, parte, suspenso))
                     junta, acumulado, suspenso = None, [bloco], False
-                    continue
-                if not suspenso and abre_referencias(bloco.texto):
-                    pedacos.extend(_emitir(fonte, junta, acumulado, parte, suspenso))
-                    junta, acumulado = None, []
-                    suspenso = True
                     continue
             acumulado.append(bloco)
             continue

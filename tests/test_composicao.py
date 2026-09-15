@@ -233,9 +233,9 @@ def test_o_censo_do_corpus_e_o_que_esta_publicado(pedacos_do_corpus):
 
     indice = indexaveis(pedacos_do_corpus, superadas=superadas(fontes))
 
-    assert len(pedacos_do_corpus) == 4499
-    assert len(indice) == 4280
-    assert sum(1 for p in indice if p.tipo == "tabela") == 1167
+    assert len(pedacos_do_corpus) == 4510
+    assert len(indice) == 4298
+    assert sum(1 for p in indice if p.tipo == "tabela") == 1164
 
 
 @pytest.mark.corpus
@@ -259,5 +259,5 @@ def test_nenhuma_declaracao_de_conflito_de_interesse_sobrevive(pedacos_do_corpus
         return any(p.fonte_id == fonte_id and marca in p.texto for p in sobrevivem)
 
     assert sobrevive("pcdt-dislipidemia-2019", "Framingham")
-    assert sobrevive("pcdt-dm2-2026", "insulina NPH")
+    assert sobrevive("pcdt-dm2-2026", "insulina humana NPH")
     assert sobrevive("pcdt-has-2025", "losartana")

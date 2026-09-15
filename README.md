@@ -43,7 +43,7 @@ ficou de fora, com o motivo. Nenhum dos dois contém texto de fonte.
 O servidor de embedding recusa o pedaço que passa do teto de contexto em vez
 de cortá-lo em silêncio, e o pedaço recusado fica fora da matriz e dentro da
 assinatura, identificado pelo hash do texto. Na versão atual do corpus são 10
-de 4.280, todos tabela; o porquê está em `DECISOES.md`.
+de 4.298, todos tabela; o porquê está em `DECISOES.md`.
 `python -m geracao_ancorada.estante conferir` carrega o que está em disco e se
 recusa se a matriz, o registro e a assinatura divergirem, ou se o modelo no ar
 não for o que construiu o índice.
@@ -52,6 +52,8 @@ não for o que construiu o índice.
 
 A tabela entra no índice sem a legenda que a nomeia, porque o fatiador separa
 as duas e `estante/legenda.py` só recupera a legenda que estiver na mesma seção
-e antes da tabela. Das 1.167 tabelas do índice, 115 recebem a legenda de volta.
-O conserto definitivo pertence ao fatiador; o número fica registrado aqui para
-não aparecer depois como surpresa.
+e antes da tabela. Das 1.164 tabelas do índice, 72 recebem a legenda de volta;
+eram 115 antes de a legenda de figura deixar de valer para tabela, e 55 dessas
+eram fluxogramas batizando tabela de critérios. O conserto definitivo pertence
+ao fatiador; o número fica registrado aqui para não aparecer depois como
+surpresa.

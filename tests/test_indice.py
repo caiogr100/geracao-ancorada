@@ -400,17 +400,36 @@ def test_a_indexacao_dos_onze_pdf_da_a_assinatura_medida():
     assinatura = indexar(carregar_manifesto(RAIZ / "fontes" / "manifesto.yaml"))
     estante = carregar()
 
-    assert assinatura.n_pedacos == 4270
+    assert assinatura.n_pedacos == 4288
     assert assinatura.fontes_de_fora == {"pcdt-dm2-2024": "superada"}
     assert len(assinatura.fontes_indexadas) == 10
     assert len(assinatura.recusados) == 10
     assert sorted(r["id"].split("#")[1].split("/")[0] for r in assinatura.recusados) == (
         ["ap-ndice-2"] * 4 + ["termo-de-esclarecimento-"] * 6
     )
-    assert estante.matriz.shape == (4270, DIMENSAO)
-    assert estante.bm25.n_documentos == 4270
+    assert estante.matriz.shape == (4288, DIMENSAO)
+    assert estante.bm25.n_documentos == 4288
 
     registro = json.loads((indice.REGISTRO / "registro.json").read_text(encoding="utf-8"))
     for linha in registro["pedacos"]:
         assert "texto" not in linha
         assert all(len(str(v)) <= 120 for v in linha.values()), linha["id"]
+
+
+def test_o_commit_e_lido_antes_de_o_indice_tocar_no_disco(tmp_path):
+    """O registro é versionado, e o índice o reescreve ao indexar. Lido depois
+    da escrita, o `git describe --dirty` via a própria saída do índice como
+    mudança sem commit, e a reindexação de 15/09 saiu assinada "-dirty" com a
+    árvore limpa. O commit tem que ser lido antes de qualquer escrita."""
+    fontes = [fonte("pcdt-2026", substitui="pcdt-2024"), fonte("pcdt-2024")]
+    amb = ambiente(tmp_path, {"pcdt-2026": documento("nova"), "pcdt-2024": documento("velha")})
+    indexar(fontes, **amb)
+    registro = amb["registro"] / "registro.json"
+    limpo = registro.read_bytes()
+
+    def git_describe():
+        return "abc1234" if registro.read_bytes() == limpo else "abc1234-dirty"
+
+    assinatura = indexar(fontes, incluir_superadas=True, **{**amb, "commit": git_describe})
+
+    assert assinatura.commit_fatiador == "abc1234"

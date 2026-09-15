@@ -478,3 +478,126 @@ def test_bibliografia_termina_tambem_no_titulo_sem_marca(fonte):
 
     citacao = next(p for p in pedacos if "Boas práticas" in p.texto)
     assert citacao.descartavel and "SMS, 2007." in citacao.texto
+
+
+def test_frase_curta_que_fecha_a_secao_nao_some(fonte):
+    # Medido nos onze PDF em 15/09: o piso descartava 125 pedaços curtos, e 19
+    # eram frase clínica de verdade no fim de uma seção longa ("não está
+    # indicado para o tratamento de SARS-CoV-2.", "d) hipersensibilidade ou
+    # evento adverso prévio conhecido ao medicamento"). A cauda curta nasce do
+    # corte pelo teto, e o corte é que tem que evitá-la: o último parágrafo da
+    # fatia anterior desce para a cauda, que passa a caber acima do piso.
+    a = "O diabete melito tipo 2 " + "a" * 1000
+    b = "A metformina é a primeira escolha " + "b" * 730
+    c = "A dose máxima é 2 g/dia."
+    blocos = [texto(1, "1. TRATAMENTO"), texto(1, a), texto(2, b), texto(2, c)]
+
+    pedacos = fatiar(fonte, blocos)
+
+    assert [p.secao for p in pedacos] == ["1", "1"]
+    assert pedacos[0].texto == a
+    assert pedacos[1].texto == f"{b}\n{c}"
+    assert pedacos[1].pagina_inicial == 2
+
+
+def test_fragmento_solto_continua_fora_quando_nao_ha_o_que_descer(fonte):
+    # O rebalanceio só existe quando a fatia anterior tem mais de um parágrafo
+    # e o que desce faz a cauda passar do piso. Um parágrafo único acima do
+    # teto seguido do rodapé "2017;" continua sendo o caso do piso.
+    blocos = [
+        texto(1, "1. INTRODUÇÃO"),
+        texto(1, "O diabete melito tipo 2 " + "x" * TETO),
+        texto(1, "Fonte: adaptado."),
+        texto(1, "2017;"),
+    ]
+
+    pedacos = fatiar(fonte, blocos)
+
+    assert len(pedacos) == 1
+    assert "2017;" not in pedacos[0].texto
+
+
+
+def test_marco_em_linha_de_citacao_nao_reabre_a_bibliografia_do_pcdt(fonte):
+    # No pcdt-dm2-2024 a referência 61 termina na linha "anexo XXV. Disponível
+    # em:", que casava com o marco de parte, dessuspendia REFERÊNCIAS e deixava
+    # as 40 referências seguintes entrarem como úteis, sete pedaços, sob a parte
+    # "anexo XXV. Disponível em:". Dentro da bibliografia só o marco em caixa
+    # alta, que é a forma do título de parte, reabre a estrutura.
+    blocos = [
+        texto(1, "1. INTRODUÇÃO"),
+        texto(1, "O diabete melito tipo 2 " + "a" * 200),
+        texto(40, "13. REFERÊNCIAS"),
+        texto(40, "61. Brasil. Portaria de Consolidação nº 2, de 28 de setembro de 2017, " + "b" * 100),
+        texto(45, "anexo XXV. Disponível em:"),
+        texto(45, "https://bvsms.saude.gov.br/bvs/saudelegis/gm/2017/prc0002_03_10_2017.html. 2017."),
+        texto(45, "62. Thind H, Lantini R, Balletto BL. Effects of yoga among adults " + "c" * 100),
+        texto(50, "TERMO DE ESCLARECIMENTO E RESPONSABILIDADE"),
+        texto(50, "Eu, paciente, declaro ter sido informado sobre a insulina " + "d" * 200),
+    ]
+
+    pedacos = fatiar(fonte, blocos)
+
+    citados = [p for p in pedacos if "Thind" in p.texto or "Balletto" in p.texto]
+    assert citados and all(p.descartavel for p in citados)
+    assert all(not p.parte.lower().startswith("anexo xxv") for p in pedacos)
+    termo = next(p for p in pedacos if "declaro ter sido informado" in p.texto)
+    assert not termo.descartavel
+    assert termo.parte == "TERMO DE ESCLARECIMENTO E RESPONSABILIDADE"
+
+
+def test_linha_de_citacao_com_anexo_nao_reabre_a_bibliografia_do_guia(fonte):
+    # Continuação do caso "Anexo V – Sistema Nacional de Vigilância
+    # Epidemiológica": quando ainda há citação DEPOIS dessa linha e antes do
+    # capítulo seguinte, ela saía útil, seis pedaços no volume 1, com a linha de
+    # citação como parte.
+    blocos = [
+        texto(400, "CÓLERA"),
+        texto(400, "CID-10: A00"),
+        texto(400, "} DESCRIÇÃO"),
+        texto(400, "Infecção intestinal aguda causada pela enterotoxina " + "a" * 200),
+        texto(404, "REFERÊNCIAS"),
+        texto(404, "BRASIL. Ministério da Saúde. Portaria de Consolidação n.º 4."),
+        texto(404, "Anexo V – Sistema Nacional de Vigilância Epidemiológica (SNVE)"),
+        texto(404, "CENTERS FOR DISEASE CONTROL AND PREVENTION. Cholera. " + "b" * 140),
+        texto(405, "DOENÇAS DIARREICAS AGUDAS"),
+        texto(405, "CID-10: A08"),
+        texto(405, "As doenças diarreicas agudas são um grupo de doenças " + "c" * 200),
+    ]
+
+    pedacos = fatiar(fonte, blocos)
+
+    cdc = next(p for p in pedacos if "Cholera" in p.texto)
+    assert cdc.descartavel
+    assert all(not p.parte.startswith("Anexo V") for p in pedacos)
+    diarreicas = next(p for p in pedacos if "grupo de doenças" in p.texto)
+    assert not diarreicas.descartavel
+
+
+def test_segundo_cabecalho_de_bibliografia_do_guia_nao_reabre_o_capitulo(fonte):
+    # O capítulo de influenza do Guia (v1, p. 195) tem REFERÊNCIAS e, logo
+    # depois, BIBLIOGRAFIA. O segundo cabeçalho é caixa alta sem ponto, e a
+    # regra que fecha a bibliografia no título sem marca o tomava por título:
+    # 1.787 caracteres de citação saíam úteis, e as duas páginas seguintes
+    # também.
+    blocos = [
+        texto(160, "INFLUENZA SAZONAL"),
+        texto(160, "CID-10: J09 a J11"),
+        texto(160, "} DESCRIÇÃO"),
+        texto(160, "Infecção viral aguda do sistema respiratório " + "a" * 200),
+        texto(195, "REFERÊNCIAS"),
+        texto(195, "AMERICAN HEART ASSOCIATION. Pediatric Advanced Life Support. " + "b" * 140),
+        texto(195, "BIBLIOGRAFIA"),
+        texto(195, "AGÊNCIA NACIONAL DE VIGILÂNCIA SANITÁRIA (Brasil). Resolução RDC n.º 67. " + "c" * 140),
+        texto(196, "ALLSUP, S. et al. Is influenza vaccination cost effective? " + "d" * 140),
+        texto(198, "ANEXO A − ORIENTAÇÕES PARA COLETA DE AMOSTRAS"),
+        texto(198, "As amostras devem ser coletadas até o sétimo dia " + "e" * 200),
+    ]
+
+    pedacos = fatiar(fonte, blocos)
+
+    citados = [p for p in pedacos if "ALLSUP" in p.texto or "AGÊNCIA" in p.texto]
+    assert citados and all(p.descartavel for p in citados)
+    anexo = next(p for p in pedacos if "sétimo dia" in p.texto)
+    assert not anexo.descartavel
+    assert anexo.parte == "ANEXO A − ORIENTAÇÕES PARA COLETA DE AMOSTRAS"

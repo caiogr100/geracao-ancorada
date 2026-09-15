@@ -2053,11 +2053,28 @@
     "pediatria"
    ],
    "ano": 2021,
-   "sha256_texto": "0e3c8991273e47ae",
-   "n_caracteres": 1774
+   "sha256_texto": "7619d17f1a225f0b",
+   "n_caracteres": 1659
   },
   {
    "id": "pcdt-asma-2021#anexo/3.2",
+   "fonte_id": "pcdt-asma-2021",
+   "parte": "ANEXO",
+   "secao": "3",
+   "titulo_secao": "DIAGNÓSTICO",
+   "pagina_inicial": 5,
+   "pagina_final": 5,
+   "tipo": "texto",
+   "areas": [
+    "clinica-medica",
+    "pediatria"
+   ],
+   "ano": 2021,
+   "sha256_texto": "b434139335fd2f14",
+   "n_caracteres": 147
+  },
+  {
+   "id": "pcdt-asma-2021#anexo/3.3",
    "fonte_id": "pcdt-asma-2021",
    "parte": "ANEXO",
    "secao": "3",
@@ -6536,8 +6553,24 @@
     "clinica-medica"
    ],
    "ano": 2019,
-   "sha256_texto": "6ee89a6e3682ef9f",
-   "n_caracteres": 1699
+   "sha256_texto": "bab8c8dff693c765",
+   "n_caracteres": 1626
+  },
+  {
+   "id": "pcdt-dislipidemia-2019#anexo/5.2",
+   "fonte_id": "pcdt-dislipidemia-2019",
+   "parte": "ANEXO",
+   "secao": "5",
+   "titulo_secao": "evidência de doença arterial periférica manifestada por claudicação intermitente ou história de",
+   "pagina_inicial": 4,
+   "pagina_final": 4,
+   "tipo": "texto",
+   "areas": [
+    "clinica-medica"
+   ],
+   "ano": 2019,
+   "sha256_texto": "0ab5b1ce9f83b531",
+   "n_caracteres": 185
   },
   {
    "id": "pcdt-dislipidemia-2019#anexo/6.1",
@@ -8824,8 +8857,24 @@
     "clinica-medica"
    ],
    "ano": 2025,
-   "sha256_texto": "fe06d1f530647986",
-   "n_caracteres": 1712
+   "sha256_texto": "409deaf860388b75",
+   "n_caracteres": 1627
+  },
+  {
+   "id": "pcdt-has-2025#anexo/12.4",
+   "fonte_id": "pcdt-has-2025",
+   "parte": "ANEXO",
+   "secao": "12",
+   "titulo_secao": "MONITORAMENTO",
+   "pagina_inicial": 58,
+   "pagina_final": 58,
+   "tipo": "texto",
+   "areas": [
+    "clinica-medica"
+   ],
+   "ano": 2025,
+   "sha256_texto": "c318faf53e6275a4",
+   "n_caracteres": 183
   },
   {
    "id": "pcdt-has-2025#anexo/13.1",
@@ -9848,11 +9897,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "e86e2972eafc81cb",
-   "n_caracteres": 1768
+   "sha256_texto": "6e1ab4ad7cfcea54",
+   "n_caracteres": 1669
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#preparativos-pr-vios-par.3",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "",
+   "secao": "",
+   "titulo_secao": "PREPARATIVOS PRÉVIOS PARA REGISTRO NOS SISTEMAS DE INFORMAÇÃO",
+   "pagina_inicial": 19,
+   "pagina_final": 19,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "a657ed4f8f783853",
+   "n_caracteres": 177
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#preparativos-pr-vios-par.4",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -10648,8 +10713,24 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "4d22462e1a5ac635",
-   "n_caracteres": 1763
+   "sha256_texto": "5dc8f40c381357d7",
+   "n_caracteres": 1670
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.22",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "",
+   "secao": "",
+   "titulo_secao": "",
+   "pagina_inicial": 36,
+   "pagina_final": 36,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "d287a9b736821c8b",
+   "n_caracteres": 136
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#conceitos-gerais.1",
@@ -11548,7 +11629,7 @@
    "n_caracteres": 48
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.30",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.31",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -11564,7 +11645,7 @@
    "n_caracteres": 1717
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.31",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.32",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -11932,7 +12013,7 @@
    "n_caracteres": 50
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.36",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.37",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -11948,7 +12029,7 @@
    "n_caracteres": 1752
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.37",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.38",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -11964,7 +12045,7 @@
    "n_caracteres": 1719
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.38",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.39",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -11980,7 +12061,7 @@
    "n_caracteres": 1715
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.39",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.40",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -11996,7 +12077,7 @@
    "n_caracteres": 1765
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.40",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.41",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12012,7 +12093,7 @@
    "n_caracteres": 291
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.41",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.42",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12300,7 +12381,7 @@
    "n_caracteres": 120
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.45",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.46",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12316,7 +12397,7 @@
    "n_caracteres": 1737
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.46",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.47",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12332,7 +12413,7 @@
    "n_caracteres": 1783
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.47",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.48",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12348,7 +12429,7 @@
    "n_caracteres": 1754
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.48",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.49",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12364,7 +12445,7 @@
    "n_caracteres": 235
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.49",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.50",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12604,7 +12685,7 @@
    "n_caracteres": 32
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.53",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.54",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12620,7 +12701,7 @@
    "n_caracteres": 1744
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.54",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.55",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12636,7 +12717,7 @@
    "n_caracteres": 1749
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.55",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.56",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12652,7 +12733,7 @@
    "n_caracteres": 1757
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.56",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.57",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12668,7 +12749,7 @@
    "n_caracteres": 1714
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.57",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.58",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12684,7 +12765,7 @@
    "n_caracteres": 1720
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.58",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.59",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12700,7 +12781,7 @@
    "n_caracteres": 1775
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.59",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.60",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12716,7 +12797,7 @@
    "n_caracteres": 1799
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.60",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.61",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12732,7 +12813,7 @@
    "n_caracteres": 1756
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.61",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.62",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12748,7 +12829,7 @@
    "n_caracteres": 1722
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.62",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.63",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12764,7 +12845,7 @@
    "n_caracteres": 903
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.63",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.64",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -12780,7 +12861,7 @@
    "n_caracteres": 137
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#preambulo.64",
+   "id": "guia-vigilancia-saude-2024-v1#preambulo.65",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "",
    "secao": "",
@@ -15336,11 +15417,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "9426b7b311ec15d5",
-   "n_caracteres": 1759
+   "sha256_texto": "cd749a2fe6d1b15d",
+   "n_caracteres": 1660
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#influenza-sazonal/manejo-cl-nico.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "INFLUENZA SAZONAL",
+   "secao": "",
+   "titulo_secao": "MANEJO CLÍNICO",
+   "pagina_inicial": 171,
+   "pagina_final": 171,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "36884a61729f2e61",
+   "n_caracteres": 149
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#influenza-sazonal/manejo-cl-nico.3",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "INFLUENZA SAZONAL",
    "secao": "",
@@ -16282,70 +16379,6 @@
    "ano": 2024,
    "sha256_texto": "d6f6240e26f952f4",
    "n_caracteres": 18
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#influenza-sazonal/preambulo.3",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "INFLUENZA SAZONAL",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 195,
-   "pagina_final": 196,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "55fabfcb83f1a4e6",
-   "n_caracteres": 1787
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#influenza-sazonal/preambulo.4",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "INFLUENZA SAZONAL",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 196,
-   "pagina_final": 196,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "b60655392a248d8a",
-   "n_caracteres": 1742
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#influenza-sazonal/preambulo.5",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "INFLUENZA SAZONAL",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 196,
-   "pagina_final": 197,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "f32c576a8b85f6c3",
-   "n_caracteres": 1754
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#influenza-sazonal/preambulo.6",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "INFLUENZA SAZONAL",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 195,
-   "pagina_final": 197,
-   "tipo": "tabela",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "4c4b2f7fec4b734c",
-   "n_caracteres": 120
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#anexo-a-orienta-es-para-/coleta-de-amostras.1",
@@ -23496,11 +23529,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "6f6e187c4dd894ee",
-   "n_caracteres": 1778
+   "sha256_texto": "6e3ddca7a3f055c5",
+   "n_caracteres": 1681
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#botulismo/cl-nico.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "BOTULISMO",
+   "secao": "",
+   "titulo_secao": "CLÍNICO",
+   "pagina_inicial": 370,
+   "pagina_final": 370,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "8e731860ad4bc5d8",
+   "n_caracteres": 130
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#botulismo/cl-nico.3",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "BOTULISMO",
    "secao": "",
@@ -23560,11 +23609,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "82ce0850815d12f8",
-   "n_caracteres": 1745
+   "sha256_texto": "dd148b4aa0e9dac8",
+   "n_caracteres": 1700
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#botulismo/diferencial.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "BOTULISMO",
+   "secao": "",
+   "titulo_secao": "DIFERENCIAL",
+   "pagina_inicial": 371,
+   "pagina_final": 371,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "399d1debc0948645",
+   "n_caracteres": 164
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#botulismo/diferencial.3",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "BOTULISMO",
    "secao": "",
@@ -23640,8 +23705,24 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "61d2ce76820b9b89",
-   "n_caracteres": 1787
+   "sha256_texto": "7f0930e76668fa57",
+   "n_caracteres": 1692
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#botulismo/tratamento-espec-fico.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "BOTULISMO",
+   "secao": "",
+   "titulo_secao": "TRATAMENTO ESPECÍFICO",
+   "pagina_inicial": 372,
+   "pagina_final": 372,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "cfdc2f340e1e7042",
+   "n_caracteres": 192
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#botulismo/objetivos.1",
@@ -23688,8 +23769,24 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "c2c9800cf87afca0",
-   "n_caracteres": 1797
+   "sha256_texto": "8b27e41ee6b912ab",
+   "n_caracteres": 1647
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v1#botulismo/defini-o-de-caso.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v1",
+   "parte": "BOTULISMO",
+   "secao": "",
+   "titulo_secao": "DEFINIÇÃO DE CASO",
+   "pagina_inicial": 373,
+   "pagina_final": 373,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "c32e50965b0b78dd",
+   "n_caracteres": 209
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#botulismo/notifica-o.1",
@@ -25004,54 +25101,6 @@
    "n_caracteres": 50
   },
   {
-   "id": "guia-vigilancia-saude-2024-v1#anexo-v-sistema-nacional/preambulo.1",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "Anexo V – Sistema Nacional de Vigilância Epidemiológica (SNVE) (Origem: PRT MS/GM",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 404,
-   "pagina_final": 404,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "717b038eb47db471",
-   "n_caracteres": 1758
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#anexo-v-sistema-nacional/preambulo.2",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "Anexo V – Sistema Nacional de Vigilância Epidemiológica (SNVE) (Origem: PRT MS/GM",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 404,
-   "pagina_final": 404,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "3c5fca2c7aadb4ed",
-   "n_caracteres": 507
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#anexo-v-sistema-nacional/preambulo.3",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "Anexo V – Sistema Nacional de Vigilância Epidemiológica (SNVE) (Origem: PRT MS/GM",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 404,
-   "pagina_final": 404,
-   "tipo": "tabela",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "e0a11cee654ce98c",
-   "n_caracteres": 25
-  },
-  {
    "id": "guia-vigilancia-saude-2024-v1#anexo-orienta-es-para-co/preambulo.1",
    "fonte_id": "guia-vigilancia-saude-2024-v1",
    "parte": "ANEXO – ORIENTAÇÕES PARA COLETA, TRANSPORTE",
@@ -25738,54 +25787,6 @@
    "ano": 2024,
    "sha256_texto": "0035e1ef3a6cc1cd",
    "n_caracteres": 481
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#anexo-v-sistema-nacional/preambulo.4",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "Anexo V - Sistema Nacional de Vigilância Epidemiológica (SNVE) (Origem: PRT MS/GM",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 417,
-   "pagina_final": 418,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "afd602ff133390e8",
-   "n_caracteres": 1757
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#anexo-v-sistema-nacional/preambulo.5",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "Anexo V - Sistema Nacional de Vigilância Epidemiológica (SNVE) (Origem: PRT MS/GM",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 418,
-   "pagina_final": 418,
-   "tipo": "texto",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "e0278bf5f311f876",
-   "n_caracteres": 790
-  },
-  {
-   "id": "guia-vigilancia-saude-2024-v1#anexo-v-sistema-nacional/preambulo.6",
-   "fonte_id": "guia-vigilancia-saude-2024-v1",
-   "parte": "Anexo V - Sistema Nacional de Vigilância Epidemiológica (SNVE) (Origem: PRT MS/GM",
-   "secao": "",
-   "titulo_secao": "",
-   "pagina_inicial": 417,
-   "pagina_final": 418,
-   "tipo": "tabela",
-   "areas": [
-    "preventiva"
-   ],
-   "ano": 2024,
-   "sha256_texto": "8a55f9067552d9d2",
-   "n_caracteres": 62
   },
   {
    "id": "guia-vigilancia-saude-2024-v1#febre-tifoide/descri-o.1",
@@ -28648,11 +28649,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "505d92a5e7b7c1ae",
-   "n_caracteres": 1797
+   "sha256_texto": "e1eba7206f3ae186",
+   "n_caracteres": 1639
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#hepatites-virais/roteiro-da-investiga-o-e.3",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "HEPATITES VIRAIS",
+   "secao": "",
+   "titulo_secao": "ROTEIRO DA INVESTIGAÇÃO EPIDEMIOLÓGICA",
+   "pagina_inicial": 41,
+   "pagina_final": 41,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "1b71ce4ffab458db",
+   "n_caracteres": 189
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#hepatites-virais/roteiro-da-investiga-o-e.4",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "HEPATITES VIRAIS",
    "secao": "",
@@ -29272,11 +29289,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "b266a4030d97b379",
-   "n_caracteres": 1738
+   "sha256_texto": "739b6b46666c1fa5",
+   "n_caracteres": 1640
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#s-filis-adquirida-e-em-g/estrat-gias.4",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "SÍFILIS ADQUIRIDA E EM GESTANTE",
+   "secao": "",
+   "titulo_secao": "ESTRATÉGIAS",
+   "pagina_inicial": 56,
+   "pagina_final": 56,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "057279bcb6b8f52c",
+   "n_caracteres": 164
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#s-filis-adquirida-e-em-g/estrat-gias.5",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "SÍFILIS ADQUIRIDA E EM GESTANTE",
    "secao": "",
@@ -31112,8 +31145,24 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "b3e23f5cd5f947f9",
-   "n_caracteres": 1759
+   "sha256_texto": "f60ebcaa88f21417",
+   "n_caracteres": 1661
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#tuberculose/diagn-stico-da-infec-o-l.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "TUBERCULOSE",
+   "secao": "",
+   "titulo_secao": "DIAGNÓSTICO DA INFECÇÃO LATENTE PELO M. TUBERCULOSIS (ILTB)",
+   "pagina_inicial": 100,
+   "pagina_final": 100,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "0b77764feceed262",
+   "n_caracteres": 208
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#tuberculose/diagn-stico-da-tuberculo.1",
@@ -33256,11 +33305,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "55eeffd7cd5bba8f",
-   "n_caracteres": 1795
+   "sha256_texto": "8d73a81db44c8145",
+   "n_caracteres": 1706
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.4",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "MICOBACTÉRIAS NÃO TUBERCULOSAS",
+   "secao": "",
+   "titulo_secao": "ESQUEMAS TERAPÊUTICOS PARA MNT",
+   "pagina_inicial": 169,
+   "pagina_final": 169,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "ff7b7d78a529ecc0",
+   "n_caracteres": 131
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.5",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "MICOBACTÉRIAS NÃO TUBERCULOSAS",
    "secao": "",
@@ -33276,7 +33341,7 @@
    "n_caracteres": 442
   },
   {
-   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.5",
+   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.6",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "MICOBACTÉRIAS NÃO TUBERCULOSAS",
    "secao": "",
@@ -33292,7 +33357,7 @@
    "n_caracteres": 584
   },
   {
-   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.6",
+   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.7",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "MICOBACTÉRIAS NÃO TUBERCULOSAS",
    "secao": "",
@@ -33308,7 +33373,7 @@
    "n_caracteres": 418
   },
   {
-   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.7",
+   "id": "guia-vigilancia-saude-2024-v2#micobact-rias-n-o-tuberc/esquemas-terap-uticos-pa.8",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "MICOBACTÉRIAS NÃO TUBERCULOSAS",
    "secao": "",
@@ -37608,11 +37673,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "9a6a9ed5f580a419",
-   "n_caracteres": 1749
+   "sha256_texto": "fab01bfa0ca19fe8",
+   "n_caracteres": 1649
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.14",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "DENGUE, CHIKUNGUNYA E ZIKA",
+   "secao": "",
+   "titulo_secao": "MANIFESTAÇÕES CLÍNICAS",
+   "pagina_inicial": 285,
+   "pagina_final": 286,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "0bd79e38e1f2d03a",
+   "n_caracteres": 217
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.15",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "DENGUE, CHIKUNGUNYA E ZIKA",
    "secao": "",
@@ -37628,7 +37709,7 @@
    "n_caracteres": 308
   },
   {
-   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.15",
+   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.16",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "DENGUE, CHIKUNGUNYA E ZIKA",
    "secao": "",
@@ -37644,7 +37725,7 @@
    "n_caracteres": 128
   },
   {
-   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.16",
+   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.17",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "DENGUE, CHIKUNGUNYA E ZIKA",
    "secao": "",
@@ -37660,7 +37741,7 @@
    "n_caracteres": 720
   },
   {
-   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.17",
+   "id": "guia-vigilancia-saude-2024-v2#dengue-chikungunya-e-zik/manifesta-es-cl-nicas.18",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "DENGUE, CHIKUNGUNYA E ZIKA",
    "secao": "",
@@ -43800,11 +43881,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "d25525ddf470af1c",
-   "n_caracteres": 1770
+   "sha256_texto": "36aef736a75a02ea",
+   "n_caracteres": 1681
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#leishmaniose-visceral/vigil-ncia-e-controle.3",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "LEISHMANIOSE VISCERAL",
+   "secao": "",
+   "titulo_secao": "VIGILÂNCIA E CONTROLE",
+   "pagina_inicial": 459,
+   "pagina_final": 459,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "ad1b4355ef3cadcd",
+   "n_caracteres": 146
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#leishmaniose-visceral/vigil-ncia-e-controle.4",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "LEISHMANIOSE VISCERAL",
    "secao": "",
@@ -43880,11 +43977,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "63e151b3431c7e16",
-   "n_caracteres": 1746
+   "sha256_texto": "686cbf556b3638d3",
+   "n_caracteres": 1656
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#leishmaniose-visceral/monitoramento-entomol-gi.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "LEISHMANIOSE VISCERAL",
+   "secao": "",
+   "titulo_secao": "MONITORAMENTO ENTOMOLÓGICO",
+   "pagina_inicial": 460,
+   "pagina_final": 461,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "607c062d291039af",
+   "n_caracteres": 182
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#leishmaniose-visceral/monitoramento-entomol-gi.3",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "LEISHMANIOSE VISCERAL",
    "secao": "",
@@ -44056,11 +44169,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "d0e019e5aab2cc37",
-   "n_caracteres": 1753
+   "sha256_texto": "168d5f67e1fcfb8d",
+   "n_caracteres": 1658
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#leishmaniose-visceral/medidas-de-controle.3",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "LEISHMANIOSE VISCERAL",
+   "secao": "",
+   "titulo_secao": "MEDIDAS DE CONTROLE",
+   "pagina_inicial": 464,
+   "pagina_final": 464,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "68deb1b78b0fbc29",
+   "n_caracteres": 193
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#leishmaniose-visceral/medidas-de-controle.4",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "LEISHMANIOSE VISCERAL",
    "secao": "",
@@ -44424,11 +44553,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "54450662c1f96f63",
-   "n_caracteres": 1729
+   "sha256_texto": "c8878e0f94f01d6a",
+   "n_caracteres": 1635
   },
   {
    "id": "guia-vigilancia-saude-2024-v2#mal-ria/diagn-stico-laboratorial.3",
+   "fonte_id": "guia-vigilancia-saude-2024-v2",
+   "parte": "MALÁRIA",
+   "secao": "",
+   "titulo_secao": "DIAGNÓSTICO LABORATORIAL",
+   "pagina_inicial": 474,
+   "pagina_final": 474,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "768acd511ad24b75",
+   "n_caracteres": 188
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v2#mal-ria/diagn-stico-laboratorial.4",
    "fonte_id": "guia-vigilancia-saude-2024-v2",
    "parte": "MALÁRIA",
    "secao": "",
@@ -48216,11 +48361,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "d89e66ec38a2e60d",
-   "n_caracteres": 1760
+   "sha256_texto": "a0adbc700d2d6cc8",
+   "n_caracteres": 1664
   },
   {
    "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.6",
+   "fonte_id": "guia-vigilancia-saude-2024-v3",
+   "parte": "FEBRE MACULOSA BRASILEIRA E OUTRAS RICKETTSIOSES",
+   "secao": "",
+   "titulo_secao": "INVESTIGAÇÃO EPIDEMIOLÓGICA",
+   "pagina_inicial": 22,
+   "pagina_final": 22,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "73bae787d1a00ce3",
+   "n_caracteres": 181
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.7",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "FEBRE MACULOSA BRASILEIRA E OUTRAS RICKETTSIOSES",
    "secao": "",
@@ -48236,7 +48397,7 @@
    "n_caracteres": 151
   },
   {
-   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.7",
+   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.8",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "FEBRE MACULOSA BRASILEIRA E OUTRAS RICKETTSIOSES",
    "secao": "",
@@ -48252,7 +48413,7 @@
    "n_caracteres": 1512
   },
   {
-   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.8",
+   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.9",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "FEBRE MACULOSA BRASILEIRA E OUTRAS RICKETTSIOSES",
    "secao": "",
@@ -48268,7 +48429,7 @@
    "n_caracteres": 1151
   },
   {
-   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.9",
+   "id": "guia-vigilancia-saude-2024-v3#febre-maculosa-brasileir/investiga-o-epidemiol-gi.10",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "FEBRE MACULOSA BRASILEIRA E OUTRAS RICKETTSIOSES",
    "secao": "",
@@ -48584,11 +48745,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "4a7ebbf14f02234a",
-   "n_caracteres": 1757
+   "sha256_texto": "bf12c208576f6072",
+   "n_caracteres": 1662
   },
   {
    "id": "guia-vigilancia-saude-2024-v3#hantavirose/laboratorial.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v3",
+   "parte": "HANTAVIROSE",
+   "secao": "",
+   "titulo_secao": "LABORATORIAL",
+   "pagina_inicial": 32,
+   "pagina_final": 32,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "62fd18ebc61824cc",
+   "n_caracteres": 173
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v3#hantavirose/laboratorial.3",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "HANTAVIROSE",
    "secao": "",
@@ -49080,11 +49257,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "be87a2ee720c73db",
-   "n_caracteres": 1723
+   "sha256_texto": "32e06090a138127e",
+   "n_caracteres": 1629
   },
   {
    "id": "guia-vigilancia-saude-2024-v3#leptospirose/fase-precoce.2",
+   "fonte_id": "guia-vigilancia-saude-2024-v3",
+   "parte": "LEPTOSPIROSE",
+   "secao": "",
+   "titulo_secao": "FASE PRECOCE",
+   "pagina_inicial": 44,
+   "pagina_final": 44,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "b5d3dab7f3c5f009",
+   "n_caracteres": 184
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v3#leptospirose/fase-precoce.3",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "LEPTOSPIROSE",
    "secao": "",
@@ -51176,11 +51369,27 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "53deefd55deb9685",
-   "n_caracteres": 1798
+   "sha256_texto": "5a263a3a9f0ecbc7",
+   "n_caracteres": 1637
   },
   {
    "id": "guia-vigilancia-saude-2024-v3#raiva/administra-o.3",
+   "fonte_id": "guia-vigilancia-saude-2024-v3",
+   "parte": "RAIVA",
+   "secao": "",
+   "titulo_secao": "ADMINISTRAÇÃO",
+   "pagina_inicial": 94,
+   "pagina_final": 94,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "d204a6b67fb7329d",
+   "n_caracteres": 165
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v3#raiva/administra-o.4",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "RAIVA",
    "secao": "",
@@ -52200,8 +52409,24 @@
     "preventiva"
    ],
    "ano": 2024,
-   "sha256_texto": "e5f898e7def7093f",
-   "n_caracteres": 1727
+   "sha256_texto": "1ea9619356af0411",
+   "n_caracteres": 1635
+  },
+  {
+   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.4",
+   "fonte_id": "guia-vigilancia-saude-2024-v3",
+   "parte": "ARANEÍSMO",
+   "secao": "",
+   "titulo_secao": "LATRODECTISMO",
+   "pagina_inicial": 129,
+   "pagina_final": 129,
+   "tipo": "texto",
+   "areas": [
+    "preventiva"
+   ],
+   "ano": 2024,
+   "sha256_texto": "a09e9fbab54bb2c2",
+   "n_caracteres": 181
   },
   {
    "id": "guia-vigilancia-saude-2024-v3#arane-smo/diferencial.1",
@@ -52268,7 +52493,7 @@
    "n_caracteres": 50
   },
   {
-   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.4",
+   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.5",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "ARANEÍSMO",
    "secao": "",
@@ -52284,7 +52509,7 @@
    "n_caracteres": 1707
   },
   {
-   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.5",
+   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.6",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "ARANEÍSMO",
    "secao": "",
@@ -52300,7 +52525,7 @@
    "n_caracteres": 283
   },
   {
-   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.6",
+   "id": "guia-vigilancia-saude-2024-v3#arane-smo/latrodectismo.7",
    "fonte_id": "guia-vigilancia-saude-2024-v3",
    "parte": "ARANEÍSMO",
    "secao": "",
@@ -56414,6 +56639,23 @@
    "secao": "1.2",
    "titulo_secao": "tRansMissão",
    "pagina_inicial": 29,
+   "pagina_final": 29,
+   "tipo": "texto",
+   "areas": [
+    "clinica-medica",
+    "preventiva"
+   ],
+   "ano": 2019,
+   "sha256_texto": "aa11d765d86229a3",
+   "n_caracteres": 1645
+  },
+  {
+   "id": "manual-tuberculose-2019#parte-i/1.2.3",
+   "fonte_id": "manual-tuberculose-2019",
+   "parte": "PARTE I",
+   "secao": "1.2",
+   "titulo_secao": "tRansMissão",
+   "pagina_inicial": 30,
    "pagina_final": 30,
    "tipo": "texto",
    "areas": [
@@ -56421,11 +56663,11 @@
     "preventiva"
    ],
    "ano": 2019,
-   "sha256_texto": "25d9eeb06a3ff59e",
-   "n_caracteres": 1737
+   "sha256_texto": "ede2fc99ff71f197",
+   "n_caracteres": 193
   },
   {
-   "id": "manual-tuberculose-2019#parte-i/1.2.3",
+   "id": "manual-tuberculose-2019#parte-i/1.2.4",
    "fonte_id": "manual-tuberculose-2019",
    "parte": "PARTE I",
    "secao": "1.2",
@@ -58988,11 +59230,28 @@
     "preventiva"
    ],
    "ano": 2019,
-   "sha256_texto": "65aa679fbc7a3fc4",
-   "n_caracteres": 1773
+   "sha256_texto": "05db3be32191468f",
+   "n_caracteres": 1691
   },
   {
    "id": "manual-tuberculose-2019#parte-iii/4.2.2",
+   "fonte_id": "manual-tuberculose-2019",
+   "parte": "PARTE III",
+   "secao": "4.2",
+   "titulo_secao": "consideRações sobRe o tRataMento",
+   "pagina_inicial": 111,
+   "pagina_final": 112,
+   "tipo": "texto",
+   "areas": [
+    "clinica-medica",
+    "preventiva"
+   ],
+   "ano": 2019,
+   "sha256_texto": "1ec10d4144c0e30c",
+   "n_caracteres": 181
+  },
+  {
+   "id": "manual-tuberculose-2019#parte-iii/4.2.3",
    "fonte_id": "manual-tuberculose-2019",
    "parte": "PARTE III",
    "secao": "4.2",
@@ -65975,11 +66234,28 @@
     "preventiva"
    ],
    "ano": 2019,
-   "sha256_texto": "2f3d51eacbd96a3e",
-   "n_caracteres": 1755
+   "sha256_texto": "3ce0516d970a9d62",
+   "n_caracteres": 1669
   },
   {
    "id": "manual-tuberculose-2019#parte-v/9.8.5",
+   "fonte_id": "manual-tuberculose-2019",
+   "parte": "PARTE V",
+   "secao": "9.8",
+   "titulo_secao": "ViGilância da inFecção latente pelo M. tubeRCulosIs",
+   "pagina_inicial": 329,
+   "pagina_final": 329,
+   "tipo": "texto",
+   "areas": [
+    "clinica-medica",
+    "preventiva"
+   ],
+   "ano": 2019,
+   "sha256_texto": "a60a6a897cac94bd",
+   "n_caracteres": 157
+  },
+  {
+   "id": "manual-tuberculose-2019#parte-v/9.8.6",
    "fonte_id": "manual-tuberculose-2019",
    "parte": "PARTE V",
    "secao": "9.8",
@@ -67471,8 +67747,25 @@
     "preventiva"
    ],
    "ano": 2026,
-   "sha256_texto": "585a504590ca468c",
-   "n_caracteres": 1755
+   "sha256_texto": "016c0e2510c33153",
+   "n_caracteres": 1671
+  },
+  {
+   "id": "calendario-vacinacao-2026#2.3",
+   "fonte_id": "calendario-vacinacao-2026",
+   "parte": "",
+   "secao": "2",
+   "titulo_secao": "Vacina vírus sincicial respiratório A e B (recombinante) - VVSR",
+   "pagina_inicial": 6,
+   "pagina_final": 6,
+   "tipo": "texto",
+   "areas": [
+    "pediatria",
+    "preventiva"
+   ],
+   "ano": 2026,
+   "sha256_texto": "3fe188e9f48b555f",
+   "n_caracteres": 175
   },
   {
    "id": "calendario-vacinacao-2026#3.1",

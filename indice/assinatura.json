@@ -1,12 +1,12 @@
 {
  "b": 0.75,
  "bm25": {
-  "comprimento_medio": 164.13583138173303,
-  "n_documentos": 4270,
-  "vocabulario": 37034
+  "comprimento_medio": 161.78754664179104,
+  "n_documentos": 4288,
+  "vocabulario": 34852
  },
- "commit_fatiador": "d0ecd57",
- "data": "2026-09-14T18:26:20",
+ "commit_fatiador": "e5d1442",
+ "data": "2026-09-15T20:36:40",
  "digest_modelo": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
  "dimensao": 1024,
  "fontes_de_fora": {
@@ -24,9 +24,10 @@
   "manual-tuberculose-2019",
   "calendario-vacinacao-2026"
  ],
+ "incluir_superadas": false,
  "k1": 1.2,
  "modelo": "bge-m3",
- "n_pedacos": 4270,
+ "n_pedacos": 4288,
  "recusados": [
   {
    "id": "pcdt-asma-2021#ap-ndice-2/preambulo.20",
@@ -79,9 +80,9 @@
    "sha256_texto": "eedbbbc06b5c70ca"
   }
  ],
- "sha256_ids": "b57c323262900e0abd91aa306efe225c9451a6d4ae95d3420b57360476839f86",
- "sha256_pedacos": "4934676b5fe638219356a60e0e23dbd44449b136b1de5896a1b4046ff87372ac",
- "sha256_vetores": "d175c7657d1790057c1711af24abb2e8c9d59f76eaf73c7911d853f9bbcf6038",
+ "sha256_ids": "ae529dc328a1c3115f798cf212657abc825cd68bfb4b6520f2405602475a7cae",
+ "sha256_pedacos": "02fecc9fead2d8952346af9442c48b546376a8c5a9fcb9b475f9e4866a47cdba",
+ "sha256_vetores": "962fb625a78be3624160db047c13f713e0b5b8d3d2dce7393fae1ef0f2848039",
  "versao_ollama": "0.34.0",
- "versao_tokenizador": "1"
+ "versao_tokenizador": "2"
 }

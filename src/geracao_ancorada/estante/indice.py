@@ -197,6 +197,9 @@ def indexar(
     agora=_agora,
 ) -> Assinatura:
     """Reconstrói o índice inteiro a partir do manifesto e grava os dois destinos."""
+    # Lido antes de qualquer escrita: o registro é versionado, e reescrevê-lo
+    # é o que fazia o `git describe --dirty` acusar a própria saída do índice.
+    commit_lido = commit()
     sup = superadas(fontes)
     de_fora: dict[str, str] = {}
     uteis: list[Pedaco] = []
@@ -302,7 +305,7 @@ def indexar(
             "comprimento_medio": indice_lexico.comprimento_medio,
             "vocabulario": len(indice_lexico.postings),
         },
-        commit_fatiador=commit(),
+        commit_fatiador=commit_lido,
         data=agora(),
     )
     (registro / _ASSINATURA).write_text(

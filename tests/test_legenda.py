@@ -87,6 +87,17 @@ def test_chamada_de_referencia_grudada_no_numero_nao_vira_legenda():
     assert legenda(tabela, [texto, tabela]) == ""
 
 
+def test_legenda_de_figura_nao_nomeia_tabela():
+    """Medido no índice: 55 das 115 legendas atribuídas começavam com "Figura",
+    e a amostra é toda de tabela de verdade com nome de fluxograma. A tabela de
+    critérios diagnósticos do PCDT de diabete saía como "Figura 1. Fluxograma
+    de rastreamento", porque a legenda da figura vem antes dela na seção."""
+    figura = pedaco("5.3.1", secao="5.3", texto="Figura 1. Fluxograma de rastreamento e diagnóstico do diabete melito tipo 2.")
+    tabela = pedaco("5.3.5", secao="5.3", tipo="tabela", texto=" | Critérios | Normal | Pré-diabetes | DM2")
+
+    assert legenda(tabela, [figura, tabela]) == ""
+
+
 def test_legenda_de_outra_secao_nao_atravessa():
     de_fora = pedaco("5.4.1", secao="5.4", texto="Quadro 4. Critérios diagnósticos.")
     tabela = pedaco("5.5.4", tipo="tabela", texto=TABELA_5)

@@ -29,8 +29,13 @@ import re
 
 from geracao_ancorada.fatiamento.pedacos import Pedaco
 
+# Quadro e Tabela, e não Figura: a legenda da figura vem antes da tabela na
+# mesma seção com frequência, e medido no índice 55 das 115 legendas
+# atribuídas eram "Figura", com a amostra toda de tabela de verdade nomeada
+# como fluxograma. Fluxograma extraído como tabela existe, mas o nome errado
+# na tabela de critérios diagnósticos custa mais do que o nome certo nele.
 _LEGENDA = re.compile(
-    r"^[ \t]*((?:Quadro|Tabela|Figura)\s*\d{1,2}[ \t]*[.:–-][^\n]*)",
+    r"^[ \t]*((?:Quadro|Tabela)\s*\d{1,2}[ \t]*[.:–-][^\n]*)",
     re.MULTILINE,
 )
 

@@ -58,7 +58,7 @@ servidor.
 
 **Decisão.** O registro e a assinatura gravam, para cada pedaço, o hash do
 texto ao lado do id. O cache de vetores é endereçado por `sha256(modelo +
-texto que entra no encoder)`. A comparação que avisa se a lista de recusados
+digest do modelo + texto que entra no encoder)`. A comparação que avisa se a lista de recusados
 mudou entre duas indexações se faz pelo hash, e não pelo id.
 
 **Por quê.** O id é posicional: `pcdt-asma-2021#ap-ndice-2/preambulo.41` quer
@@ -73,8 +73,9 @@ fixo deixa 4.280 pedaços com 1.653 id distintos; nada no texto dos pedaços
 muda. O hash de cada um continua distinto.
 
 **O que isso obriga.** A matriz só tem os pedaços aceitos, alinhados linha a
-linha com o registro; a assinatura guarda o hash da lista de ids e o hash do
-arquivo de pedaços, e `carregar` se recusa quando os três divergem. Módulo
+linha com o registro; a assinatura guarda o hash da lista de ids, o do
+arquivo de pedaços e o da matriz, e `carregar` confere os três e a versão do
+tokenizador, recusando o índice quando qualquer um diverge. Módulo
 nenhum pode usar a posição na matriz como identidade fora de uma sessão.
 
 **Ressalva conhecida.** A constante do RRF e a cota por braço, que o desenho
