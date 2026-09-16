@@ -376,6 +376,12 @@ def test_assinatura_carrega_o_que_a_monografia_precisa_declarar(tmp_path):
         assert campo in dados, campo
     assert dados["dimensao"] == DIMENSAO
     assert dados["commit_fatiador"] == "abc1234"
+    assert dados["fusao"] == {
+        "constante_rrf": 60,
+        "garantidos_por_braco": 1,
+        "profundidade": 50,
+        "n_entregue": 8,
+    }
 
 
 # --- o dado real --------------------------------------------------------------

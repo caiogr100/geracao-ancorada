@@ -48,6 +48,27 @@ de 4.298, todos tabela; o porquê está em `DECISOES.md`.
 recusa se a matriz, o registro e a assinatura divergirem, ou se o modelo no ar
 não for o que construiu o índice.
 
+## Busca
+
+`python -m geracao_ancorada.estante buscar "pergunta"` roda os dois braços
+sobre o índice carregado e entrega oito pedaços. O braço léxico é o BM25 do
+índice, sobre os tokens da pergunta menos as palavras funcionais; o denso é o
+produto interno do vetor da pergunta com a matriz. Cada braço traz os seus
+cinquenta primeiros, e a lista léxica para no último pedaço com escore acima
+de zero. As duas listas se fundem por posição (RRF, constante 60), e o primeiro
+colocado de cada braço entra sempre na entrega, na posição que a fusão lhe dá.
+O empate se resolve pelo id.
+As quatro constantes ficam gravadas na assinatura do índice, e a decisão, com
+a aritmética que a sustenta, está em `DECISOES.md`.
+
+Cada achado carrega a posição em cada lista, o cosseno e o BM25 crus, o escore
+fundido e a marca de ter entrado pela garantia. `--saida corridas.jsonl`
+acrescenta a corrida a um arquivo com todos os candidatos e os dois escores,
+sem o texto, o que permite recalcular a fusão com outra constante ou sem a
+garantia sem rodar a busca de novo. `--area` e `--fonte` filtram por máscara
+antes da pontuação; a área casa por interseção, porque três documentos têm
+duas. O pedaço descartável (bibliografia, sumário) fica de fora por padrão.
+
 ## Dívidas declaradas
 
 A tabela entra no índice sem a legenda que a nomeia, porque o fatiador separa

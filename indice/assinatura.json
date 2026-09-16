@@ -5,8 +5,8 @@
   "n_documentos": 4288,
   "vocabulario": 34852
  },
- "commit_fatiador": "e5d1442",
- "data": "2026-09-15T20:36:40",
+ "commit_fatiador": "9224bec",
+ "data": "2026-09-15T21:22:55",
  "digest_modelo": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
  "dimensao": 1024,
  "fontes_de_fora": {
@@ -24,6 +24,12 @@
   "manual-tuberculose-2019",
   "calendario-vacinacao-2026"
  ],
+ "fusao": {
+  "constante_rrf": 60,
+  "garantidos_por_braco": 1,
+  "n_entregue": 8,
+  "profundidade": 50
+ },
  "incluir_superadas": false,
  "k1": 1.2,
  "modelo": "bge-m3",

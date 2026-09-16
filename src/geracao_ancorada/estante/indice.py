@@ -28,7 +28,7 @@ from pathlib import Path
 
 import numpy as np
 
-from geracao_ancorada.estante import bm25, lexico, vetores
+from geracao_ancorada.estante import bm25, fusao, lexico, vetores
 from geracao_ancorada.estante.composicao import indexaveis, superadas
 from geracao_ancorada.estante.legenda import legenda
 from geracao_ancorada.estante.texto import texto_indexado_denso, texto_indexado_lexico
@@ -90,6 +90,7 @@ class Assinatura:
     b: float
     versao_tokenizador: str
     bm25: dict
+    fusao: dict
     commit_fatiador: str
     data: str
 
@@ -304,6 +305,12 @@ def indexar(
             "n_documentos": indice_lexico.n_documentos,
             "comprimento_medio": indice_lexico.comprimento_medio,
             "vocabulario": len(indice_lexico.postings),
+        },
+        fusao={
+            "constante_rrf": fusao.CONSTANTE_RRF,
+            "garantidos_por_braco": fusao.GARANTIDOS_POR_BRACO,
+            "profundidade": fusao.PROFUNDIDADE,
+            "n_entregue": fusao.N_ENTREGUE,
         },
         commit_fatiador=commit_lido,
         data=agora(),

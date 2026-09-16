@@ -104,3 +104,56 @@ vetor. A primeira versão desse teste trocava a última frase de um texto de
 nada era cortado de nenhum jeito, e o teste ficava verde com `truncate: true`.
 Quem segura a regra no dia a dia é o teste com o servidor falso, que confere o
 campo em todo pedido.
+
+## 2026-09-15 — As duas listas se fundem por posição, com o primeiro de cada braço garantido
+
+**Decisão.** A lista léxica e a lista densa se juntam por fusão recíproca de
+posição (RRF, Cormack, Clarke e Buettcher, 2009) com constante 60 e pesos
+iguais, sem normalização de escore e sem peso entre braços. Cada braço entra com
+os seus 50 primeiros. O primeiro colocado de cada braço entra sempre entre os
+oito pedaços entregues, e a entrega inteira sai na ordem da fusão: a garantia
+decide quem entra, e não em que posição. A lista
+léxica é cortada antes da fusão no último pedaço com escore acima de zero. O
+empate na fusão se resolve pelo id, em ordem alfabética. Os escores crus dos
+dois braços e a posição em cada lista ficam gravados em cada achado.
+
+**Por quê.** As notas dos dois braços não vivem na mesma escala: o cosseno fica
+quase sempre entre 0,4 e 0,7 e o BM25 não tem teto, com uma sigla rara valendo
+18 num pedaço e zero em todos os outros. Somar as duas não quer dizer nada, e
+normalizar antes de somar abre um peso que teria de ser escolhido olhando para
+os resultados, que é a mesma objeção que descartou a varredura de modelo de
+embedding em 31/08. A fusão por posição dispensa a escala, e a constante 60 é a
+publicada, e não uma ajustada aqui.
+
+A garantia do primeiro de cada braço existe porque a fusão por posição premia o
+consenso e não distingue o primeiro colocado que casou uma sigla exata do
+primeiro colocado que foi só o menos ruim. Com a constante 60, um pedaço que só
+o braço léxico encontra, em primeiro, vale 1/61, e perde para qualquer pedaço
+que os dois braços ponham entre o terceiro e o quarto lugar. A garantia de um
+por braço responde a isso sem número a justificar: dois juízes, o favorito de
+cada um é ouvido, e o resto é consenso. O desenho de 13/09 previa três por
+braço, e a versão foi reduzida a um em 15/09 porque "três" pede a mesma
+justificativa que se recusou a dar para um peso, enquanto "o primeiro" não pede
+nenhuma. A garantia é escolha deste trabalho, inspirada na intercalação de
+listas (Voorhees, Gupta e Johnson-Laird, 1995), e não está publicada nesta
+forma.
+
+O corte da lista léxica no escore zero é o que impede um defeito que só aparece
+na consulta curta. "IGHVZ" casa entre três e sete pedaços do índice; os outros
+quarenta e tantos dos "cinquenta primeiros" teriam escore zero, ordem arbitrária
+e, mesmo assim, ganhariam ponto na fusão só por constarem da lista, o que
+bastaria para vencer o primeiro colocado isolado do outro braço.
+
+**Medição que sustenta.** A aritmética acima é a medição: 1/61 = 0,0164 contra
+1/63 + 1/64 = 0,0315. A régua de 60 âncoras, quando existir, é portão do índice
+e não sintoniza nada disto; com esse tamanho de amostra, o intervalo de
+confiança não separa a fusão com garantia da fusão sem ela. Os 50 candidatos de
+cada braço ficam gravados por consulta, com os dois escores, para que a versão
+sem garantia e a versão com três por braço possam ser recalculadas depois sem
+rodar a busca de novo.
+
+**O que isso obriga.** A constante da fusão, a profundidade por braço, o
+tamanho da entrega e a garantia por braço entram na assinatura do índice. Um
+pedaço ausente de uma lista contribui zero, e nunca uma posição imputada. O
+braço que volta vazio não derruba a fusão. Nenhuma dessas constantes se ajusta
+olhando para a régua.
